@@ -1,13 +1,9 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@use "../styles/variables" as *;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html {
@@ -20,21 +16,59 @@ body {
   overflow-x: hidden;
 }
 
+:root {
+  // Background
+  --background: #f5f5f5;
+  --surface: #d7d7d7;
+
+  // Text
+  --text-primary: #171717;
+  --text-secondary: #737373;
+
+  // Typography
+  --text-xs: 0.75rem; // 12px
+  --text-sm: 0.875rem; // 14px
+  --text-base: 1rem; // 16px
+  --text-md: 1.25rem; // 20px
+  --text-lg: 1.5rem; // 24px
+  --text-xl: 1.75rem; // 28px
+  --text-2xl: 2rem; // 32px
+  --text-3xl: 2.5rem; // 40px
+  --text-4xl: 3rem; // 48px
+  --text-5xl: 3.5rem; // 56px
+  --text-6xl: 4rem; // 64px
+  --text-7xl: 4.25rem; // 68px
+  --text-8xl: 7.5rem; // 120px
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --background: #171717;
+  --surface: #212121;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #737373;
+
+  color-scheme: dark;
+}
+
 body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
+
+  color: var(--text-primary);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family: var(--font-neue-montreal), sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 a {
@@ -42,8 +76,6 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.mono {
+  font-family: var(--font-azaret-mono), monospace;
 }
