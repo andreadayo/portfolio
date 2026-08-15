@@ -15,17 +15,28 @@ export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useMounted();
 
-  const isDark = mounted && resolvedTheme === "dark";
+  if (!mounted) {
+    return (
+      <button
+        type="button"
+        aria-hidden
+        tabIndex={-1}
+        style={{ visibility: "hidden" }}
+      >
+        Dark
+      </button>
+    );
+  }
+
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={
-        mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"
-      }
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
-      {mounted ? (isDark ? "Light" : "Dark") : "Theme"}
+      {isDark ? "Light" : "Dark"}
     </button>
   );
 }
