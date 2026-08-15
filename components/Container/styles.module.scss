@@ -1,0 +1,34 @@
+$border: 0.063em solid var(--surface);
+$min-height: 3.125em;
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.left,
+.right {
+  width: 2.5em;
+  min-height: $min-height;
+  flex: 0 0 2.5em;
+}
+
+.left {
+  border-left: $border;
+}
+
+.right {
+  border-right: $border;
+}
+
+.inner {
+  width: 37.5em;
+  min-height: $min-height;
+  border-left: $border;
+  border-right: $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
