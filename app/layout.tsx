@@ -32,7 +32,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeProvider>
           <div className="page-shell">
             <Header />
-            {children}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+              {children}
+            </div>
             <Footer />
           </div>
         </ThemeProvider>

@@ -1,9 +1,16 @@
-import styles from "./page.module.css";
+import About from "@/components/Sections/About";
+import Experience from "@/components/Sections/Experience";
+import Education from "@/components/Sections/Education";
+import TechStack from "@/components/Sections/TechStack";
+import styles from "./page.module.scss";
 
 export default function Home() {
   return (
     <div className={styles.page}>
-      <main className={styles.main}>this is the content</main>
+      <About />
+      <Experience />
+      <Education />
+      <TechStack />
     </div>
   );
 }

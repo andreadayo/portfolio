@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 interface Props {
   children: React.ReactNode;
   smallPadding?: boolean;
+  fillHeight?: boolean;
   isLast?: boolean;
 }
 
@@ -10,12 +11,13 @@ export default function Container({
   children,
   smallPadding = false,
   isLast = false,
+  fillHeight = false,
 }: Props) {
   return (
     <div
       className={styles.container}
       style={{
-        borderTop: isLast ? "0.063em solid var(--surface)" : "none",
+        height: fillHeight ? "100%" : "auto",
         borderBottom: isLast ? "none" : "0.063em solid var(--surface)",
       }}
     >
