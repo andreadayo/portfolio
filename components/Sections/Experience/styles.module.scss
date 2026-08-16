@@ -1,0 +1,34 @@
+.experience {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25em;
+
+  .workList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+
+    .workItem {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125em;
+
+      .title {
+        font-size: var(--text-base);
+        font-weight: 500;
+      }
+
+      .subtitle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+      }
+    }
+  }
+}

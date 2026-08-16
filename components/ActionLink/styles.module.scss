@@ -1,0 +1,9 @@
+.actionLink {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  font-size: var(--text-xs);
+  font-family: var(--font-azeret-mono);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
