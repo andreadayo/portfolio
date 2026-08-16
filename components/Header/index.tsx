@@ -4,7 +4,11 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function Header() {
   return (
     <Container smallPadding>
-      <span>AD</span>
+      <span
+        style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}
+      >
+        AD
+      </span>
       <ThemeToggle />
     </Container>
   );

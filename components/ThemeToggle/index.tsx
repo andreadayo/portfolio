@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
+import SvgIcon from "@/components/SvgIcon";
 
 function useMounted() {
   return useSyncExternalStore(
@@ -31,12 +32,20 @@ export default function ThemeToggle() {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <button
-      type="button"
+    <div
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
     >
-      {isDark ? "Light" : "Dark"}
-    </button>
+      {isDark ? (
+        <SvgIcon src="/icons/sun.svg" color="var(--text-secondary" size="1em" />
+      ) : (
+        <SvgIcon
+          src="/icons/moon.svg"
+          color="var(--text-secondary"
+          size="1em"
+        />
+      )}
+    </div>
   );
 }
