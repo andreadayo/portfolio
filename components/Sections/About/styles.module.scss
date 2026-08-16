@@ -1,0 +1,47 @@
+.about {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25em;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+
+    .iconContainer {
+      width: 3.75em;
+      height: 3.75em;
+      border-radius: 50%;
+      background-color: var(--surface);
+
+      .icon {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25em;
+
+      .name {
+        font-size: var(--text-xl);
+        font-weight: 500;
+      }
+
+      .subtitle {
+        font-size: var(--text-base);
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  .description {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+  }
+}

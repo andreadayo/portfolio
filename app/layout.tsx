@@ -7,7 +7,28 @@ import Footer from "@/components/Footer";
 import "./globals.scss";
 
 const neueMontreal = localFont({
-  src: "../public/fonts/NeueMontreal-Regular.otf",
+  src: [
+    {
+      path: "../public/fonts/NeueMontreal-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/NeueMontreal-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/NeueMontreal-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/NeueMontreal-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-neue-montreal",
 });
 
