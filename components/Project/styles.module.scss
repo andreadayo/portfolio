@@ -1,0 +1,32 @@
+.projectItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625em;
+
+  .imageContainer {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--surface);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125em;
+
+    .title {
+      font-size: var(--text-base);
+      font-weight: 500;
+    }
+
+    .subtitle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+  }
+}
