@@ -7,7 +7,7 @@ interface SvgIconProps {
 
 export default function SvgIcon({
   src,
-  color = "var(--foreground)",
+  color = "var(--text-primary)",
   size = 24,
   className,
 }: SvgIconProps) {
