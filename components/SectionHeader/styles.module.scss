@@ -1,0 +1,19 @@
+.sectionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.25em;
+
+  .header {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+
+    .label {
+      font-family: var(--font-azeret-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+    }
+  }
+}

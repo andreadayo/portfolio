@@ -1,0 +1,149 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1;
+  }
+}
+
+.projects {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25em;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0.375em;
+    font-family: var(--font-azeret-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--text-secondary);
+
+    .active {
+      color: var(--text-primary);
+    }
+  }
+
+  .projectHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+
+    .projectDetails {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+
+      .projectTitle {
+        font-size: var(--text-xl);
+        font-weight: 500;
+      }
+      .projectDescription {
+        color: var(--text-secondary);
+      }
+
+      .technologies {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+        font-family: var(--font-azeret-mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+    }
+
+    .linkContainer {
+      display: flex;
+      gap: 0.5em;
+    }
+  }
+
+  .projectContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+
+    .image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface);
+    }
+
+    .paragraph {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .imageCaption {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+
+      .image {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--surface);
+      }
+
+      .caption {
+        font-style: italic;
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+      }
+    }
+
+    .header {
+      font-size: var(--text-md);
+      font-weight: 500;
+    }
+
+    .bulletList {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      padding-left: 1.5em;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .quote {
+      padding: 0.75em 0.75em 0.75em 1.25em;
+      border-left: 0.188em solid var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25em;
+
+      .author {
+        font-family: var(--font-azeret-mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+    }
+
+    .codeBlock {
+      padding: 1.5em;
+      background: var(--surface);
+
+      .code {
+        font-family: var(--font-azeret-mono);
+        font-size: var(--text-xs);
+        line-height: 135%;
+        color: var(--text-secondary);
+      }
+    }
+  }
+}
+
+.projectsList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+}
