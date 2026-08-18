@@ -1,19 +1,21 @@
+import Link from "next/link";
 import styles from "./styles.module.scss";
 
 interface ProjectProps {
   //   TODO: Add image
   title: string;
   subtitle: string;
+  href: string;
 }
 
-export default function Projects({ title, subtitle }: ProjectProps) {
+export default function Projects({ title, subtitle, href }: ProjectProps) {
   return (
-    <div className={styles.projectItem}>
+    <Link href={`/projects/${href}`} className={styles.projectItem}>
       <div className={styles.imageContainer}>{/* TODO: Add image */}</div>
       <div className={styles.text}>
         <h2 className={styles.title}>{title}</h2>
         <span className={styles.subtitle}>{subtitle}</span>
       </div>
-    </div>
+    </Link>
   );
 }

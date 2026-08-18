@@ -33,10 +33,10 @@ export default function Projects() {
 
           {/* Project List */}
           <div className={styles.projectsList}>
-            <Project title="Project 1" subtitle="Website" />
-            <Project title="Project 2" subtitle="Design" />
-            <Project title="Project 3" subtitle="Playground" />
-            <Project title="Project 4" subtitle="Website" />
+            <Project title="Project 1" subtitle="Website" href="project-1" />
+            <Project title="Project 2" subtitle="Design" href="project-2" />
+            <Project title="Project 3" subtitle="Playground" href="project-3" />
+            <Project title="Project 4" subtitle="Website" href="project-4" />
           </div>
         </div>
       </Container>

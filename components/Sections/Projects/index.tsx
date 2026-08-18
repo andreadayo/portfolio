@@ -16,8 +16,8 @@ export default function Projects() {
         />
 
         <div className={styles.projectsList}>
-          <Project title="Project 1" subtitle="Website" />
-          <Project title="Project 2" subtitle="Design" />
+          <Project title="Project 1" subtitle="Website" href="project-1" />
+          <Project title="Project 2" subtitle="Design" href="project-2" />
         </div>
       </div>
     </Container>
