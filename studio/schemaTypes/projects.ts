@@ -1,4 +1,5 @@
 import {defineType} from 'sanity'
+import {orderRankField} from '@sanity/orderable-document-list'
 import {richText} from './richText'
 
 export default defineType({
@@ -7,6 +8,7 @@ export default defineType({
   type: 'document',
 
   fields: [
+    orderRankField({type: 'projects'}),
     {
       name: 'slug',
       title: 'Slug',
@@ -68,4 +70,11 @@ export default defineType({
       of: [richText],
     },
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'subtitle',
+    },
+  },
 })

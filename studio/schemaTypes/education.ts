@@ -1,4 +1,5 @@
 import {defineType} from 'sanity'
+import {orderRankField} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'education',
@@ -6,6 +7,7 @@ export default defineType({
   type: 'document',
 
   fields: [
+    orderRankField({type: 'education'}),
     {
       name: 'school',
       title: 'School',
@@ -40,4 +42,11 @@ export default defineType({
       hidden: ({parent}) => parent?.isCurrent === true,
     },
   ],
+
+  preview: {
+    select: {
+      title: 'school',
+      subtitle: 'program',
+    },
+  },
 })

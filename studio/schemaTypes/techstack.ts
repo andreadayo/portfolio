@@ -1,4 +1,5 @@
 import {defineType} from 'sanity'
+import {orderRankField} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'techStack',
@@ -6,6 +7,7 @@ export default defineType({
   type: 'document',
 
   fields: [
+    orderRankField({type: 'techStack'}),
     {
       name: 'title',
       title: 'Title',
@@ -19,4 +21,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+    },
+  },
 })

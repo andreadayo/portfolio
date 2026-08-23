@@ -6,8 +6,9 @@ import {CodeBlockIcon} from '@sanity/icons/CodeBlock'
 import {DocumentsIcon} from '@sanity/icons/Documents'
 import {EnvelopeIcon} from '@sanity/icons/Envelope'
 import {BookmarkIcon} from '@sanity/icons/Bookmark'
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title('Navigation')
     .items([
@@ -18,13 +19,37 @@ export const structure: StructureResolver = (S) =>
         .icon(UserIcon)
         .child(S.editor().id('about').schemaType('about').documentId('about')),
 
-      S.documentTypeListItem('experience').title('Experience').icon(CaseIcon),
+      orderableDocumentListDeskItem({
+        type: 'experience',
+        title: 'Experience',
+        icon: CaseIcon,
+        S,
+        context,
+      }),
 
-      S.documentTypeListItem('education').title('Education').icon(BookIcon),
+      orderableDocumentListDeskItem({
+        type: 'education',
+        title: 'Education',
+        icon: BookIcon,
+        S,
+        context,
+      }),
 
-      S.documentTypeListItem('techStack').title('Tech Stack').icon(CodeBlockIcon),
+      orderableDocumentListDeskItem({
+        type: 'techStack',
+        title: 'Tech Stack',
+        icon: CodeBlockIcon,
+        S,
+        context,
+      }),
 
-      S.documentTypeListItem('projects').title('Projects').icon(DocumentsIcon),
+      orderableDocumentListDeskItem({
+        type: 'projects',
+        title: 'Projects',
+        icon: DocumentsIcon,
+        S,
+        context,
+      }),
 
       S.listItem()
         .id('contact')

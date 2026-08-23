@@ -1,4 +1,6 @@
 import {defineType} from 'sanity'
+import {orderRankField} from '@sanity/orderable-document-list'
+import {createElement} from 'react'
 import {richText} from './richText'
 
 export default defineType({
@@ -7,6 +9,7 @@ export default defineType({
   type: 'document',
 
   fields: [
+    orderRankField({type: 'experience'}),
     {
       name: 'icon',
       title: 'Icon',
@@ -103,4 +106,33 @@ export default defineType({
       ],
     },
   ],
+
+  preview: {
+    select: {
+      title: 'company',
+      subtitle: 'employmentType',
+      icon: 'icon',
+    },
+    prepare: ({title, subtitle, icon}) => ({
+      title,
+      subtitle: subtitle ? subtitle.charAt(0).toUpperCase() + subtitle.slice(1) : undefined,
+      media: createElement(
+        'span',
+        {
+          style: {
+            alignItems: 'center',
+            backgroundColor: '#e5e7eb',
+            display: 'flex',
+            fontSize: '12px',
+            fontWeight: 600,
+            height: '32px',
+            justifyContent: 'center',
+            width: '32px',
+            color: '#374151',
+          },
+        },
+        icon || '?',
+      ),
+    }),
+  },
 })
