@@ -1,37 +1,36 @@
 import Image from "next/image";
 import Container from "@/components/Container";
+import RichText from "@/components/RichText";
+import { getAbout, sanityImageUrl } from "@/lib/sanity";
 import styles from "./styles.module.scss";
 
-export default function About() {
+export default async function About() {
+  const about = await getAbout();
+  const iconUrl = sanityImageUrl(about?.icon);
+
   return (
     <Container>
       <div className={styles.about}>
         <div className={styles.header}>
           <div className={styles.iconContainer}>
-            <Image
-              className={styles.icon}
-              src="/assets/profile-icon.png"
-              alt="Profile Icon"
-              width={400}
-              height={400}
-            />
+            {iconUrl && (
+              <Image
+                className={styles.icon}
+                src={iconUrl}
+                alt={about?.name ? `${about.name} profile` : "Profile Icon"}
+                width={400}
+                height={400}
+              />
+            )}
           </div>
           <div className={styles.text}>
-            <h1 className={styles.name}>Andrea Dayo</h1>
+            <h1 className={styles.name}>{about?.name}</h1>
             <p className={styles.subtitle}>
-              Software Engineer based in Manila, PH
+              {about?.role} {about?.location && `based in ${about.location}`}
             </p>
           </div>
         </div>
-        <p className={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-          tristique elit ut est aliquet eleifend.
-          <br />
-          <br />
-          Nulla sagittis, mauris nec. Donec aliquet, odio vitae pharetra
-          tincidunt, sem nulla gravida neque, ut sagittis risus tellus quis
-          arcu.
-        </p>
+        {about?.description && <RichText value={about.description} />}
       </div>
     </Container>
   );

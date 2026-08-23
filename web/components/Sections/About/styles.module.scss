@@ -42,5 +42,65 @@
   .description {
     font-size: var(--text-base);
     color: var(--text-secondary);
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    u {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    h2,
+    h3 {
+      color: var(--text-primary);
+      margin: 1.5em 0 0.5em;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 1em;
+      padding-left: 1.5em;
+    }
+
+    blockquote {
+      border-left: 2px solid var(--text-primary);
+      margin: 1em 0;
+      padding-left: 1em;
+    }
+
+    figure {
+      margin: 1.5em 0;
+    }
+
+    figure img {
+      height: auto;
+      max-width: 100%;
+    }
+
+    figcaption {
+      font-size: 0.875em;
+      margin-top: 0.5em;
+    }
   }
 }
