@@ -24,11 +24,20 @@ export default defineType({
               name: 'link',
               title: 'Link',
               type: 'url',
-              validation: (Rule) => Rule.required(),
+              validation: (Rule) =>
+                Rule.uri({
+                  scheme: ['http', 'https', 'mailto', 'tel'],
+                }),
             },
           ],
         },
       ],
     },
   ],
+
+  preview: {
+    prepare: () => ({
+      title: 'Contact',
+    }),
+  },
 })

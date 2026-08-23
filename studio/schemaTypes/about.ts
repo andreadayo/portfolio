@@ -1,5 +1,4 @@
 import {defineType} from 'sanity'
-import {richText} from './richText'
 
 export default defineType({
   name: 'about',
@@ -18,8 +17,13 @@ export default defineType({
     {
       name: 'description',
       title: 'Description',
-      type: 'array',
-      of: [richText],
+      type: 'richText',
     },
   ],
+
+  preview: {
+    prepare: () => ({
+      title: 'About',
+    }),
+  },
 })

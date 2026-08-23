@@ -1,7 +1,6 @@
 import {defineType} from 'sanity'
 import {orderRankField} from '@sanity/orderable-document-list'
 import {createElement} from 'react'
-import {richText} from './richText'
 
 export default defineType({
   name: 'experience',
@@ -98,8 +97,7 @@ export default defineType({
             {
               name: 'description',
               title: 'Description',
-              type: 'array',
-              of: [richText],
+              type: 'richText',
             },
           ],
         },
