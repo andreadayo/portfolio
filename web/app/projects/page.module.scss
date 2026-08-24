@@ -1,0 +1,34 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1;
+  }
+}
+
+.projects {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25em;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0.375em;
+    font-family: var(--font-azeret-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--text-secondary);
+
+    .active {
+      color: var(--text-primary);
+    }
+  }
+
+  .expDescription {
+    color: var(--text-secondary);
+  }
+}

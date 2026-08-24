@@ -1,0 +1,92 @@
+.richText {
+  font-size: inherit;
+  color: inherit;
+
+  p {
+    margin: 0 0 1em;
+    color: var(--text-secondary);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  u {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  a:not([class]) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  h2,
+  h3 {
+    color: var(--text-primary);
+    margin: 1.5em 0 0.5em;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 1em;
+    padding-left: 1.5em;
+  }
+
+  figure {
+    margin: 1.5em 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  figcaption {
+    width: 100%;
+    margin-top: 0.25em;
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .quote {
+    margin: 1.5em 0;
+    padding: 0.75em 0.75em 0.75em 1.25em;
+
+    border-left: 0.188em solid var(--text-secondary);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+
+    .quoteText {
+      color: var(--text-primary);
+    }
+
+    .author {
+      font-family: var(--font-azeret-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+  }
+
+  :global(.button) {
+    text-decoration: none;
+  }
+
+  .button {
+    margin: 1.5em 0;
+  }
+}
