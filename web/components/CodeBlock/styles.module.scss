@@ -1,0 +1,17 @@
+.codeBlock {
+  margin: 1.5em 0;
+  padding: 1.5em;
+  overflow-x: auto;
+  background: var(--surface);
+
+  :global(pre) {
+    margin: 0;
+    background: transparent !important;
+  }
+
+  :global(code) {
+    font-family: var(--font-azeret-mono);
+    font-size: var(--text-xs);
+    line-height: 135%;
+  }
+}

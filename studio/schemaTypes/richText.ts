@@ -74,6 +74,32 @@ export default defineType({
       type: 'object',
       fields: [
         {
+          name: 'language',
+          title: 'Language',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'JavaScript', value: 'javascript'},
+              {title: 'TypeScript', value: 'typescript'},
+              {title: 'TSX', value: 'tsx'},
+              {title: 'JSX', value: 'jsx'},
+              {title: 'HTML', value: 'html'},
+              {title: 'CSS', value: 'css'},
+              {title: 'SCSS', value: 'scss'},
+              {title: 'JSON', value: 'json'},
+              {title: 'SQL', value: 'sql'},
+              {title: 'PHP', value: 'php'},
+              {title: 'Python', value: 'python'},
+              {title: 'Java', value: 'java'},
+              {title: 'Kotlin', value: 'kotlin'},
+              {title: 'ABAP', value: 'abap'},
+              {title: 'Bash', value: 'bash'},
+            ],
+            layout: 'dropdown',
+          },
+          validation: (Rule) => Rule.required(),
+        },
+        {
           name: 'code',
           title: 'Code',
           type: 'text',
@@ -83,6 +109,7 @@ export default defineType({
       preview: {
         select: {
           title: 'code',
+          subtitle: 'language',
         },
       },
     }),

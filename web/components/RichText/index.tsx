@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
-import { sanityImageUrl } from "@/lib/sanity";
+import CodeBlock from "@/components/CodeBlock";
 import SvgIcon from "@/components/SvgIcon";
+import { sanityImageUrl } from "@/lib/sanity";
+
 import styles from "./styles.module.scss";
 
 type RichTextProps = {
@@ -49,11 +51,9 @@ export default function RichText({ value }: RichTextProps) {
               </blockquote>
             ),
 
-            code: ({ value }) => (
-              <pre className={styles.codeBlock}>
-                <code className={styles.code}>{value.code}</code>
-              </pre>
-            ),
+            code: ({ value }) => {
+              return <CodeBlock code={value.code} language={value.language} />;
+            },
           },
 
           marks: {

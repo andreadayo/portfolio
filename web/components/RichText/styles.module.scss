@@ -80,19 +80,4 @@
       color: var(--text-secondary);
     }
   }
-
-  .codeBlock {
-    margin: 1.5em 0;
-    padding: 1.5em;
-    overflow-x: auto;
-    background: var(--surface);
-  }
-
-  .code {
-    font-family: var(--font-azeret-mono);
-    font-size: var(--text-xs);
-    line-height: 135%;
-    color: var(--text-secondary);
-    white-space: pre;
-  }
 }
