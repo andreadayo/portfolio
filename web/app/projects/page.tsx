@@ -1,9 +1,12 @@
+import Link from "next/link";
 import Container from "@/components/Container";
 import ProjectList from "@/components/ProjectList";
-import { getProjects, sanityImageUrl } from "@/lib/sanity";
+import { getPageDescriptions, getProjects, sanityImageUrl } from "@/lib/sanity";
+import RichText from "@/components/RichText";
 import styles from "./page.module.scss";
 
 export default async function Projects() {
+  const pageDescriptions = await getPageDescriptions();
   const projects = await getProjects();
   const projectsWithImages = projects.map((project) => ({
     ...project,
@@ -14,16 +17,19 @@ export default async function Projects() {
     <div className={styles.page}>
       <Container fillHeight>
         <div className={styles.projects}>
-          {/* Navigation */}
           <div className={styles.nav}>
-            <span>Home</span> <span>/</span>
+            <Link href="/">Home</Link>
+            <span>/</span>
             <span className={styles.active}>Projects</span>
           </div>
 
           {/* Description */}
           <p className={styles.expDescription}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-            tristique elit ut est aliquet eleifend. Nulla sagittis, mauris nec.
+            {pageDescriptions?.projectListDescription && (
+              <div className={styles.expDescription}>
+                <RichText value={pageDescriptions.projectListDescription} />
+              </div>
+            )}
           </p>
 
           {/* Project List */}

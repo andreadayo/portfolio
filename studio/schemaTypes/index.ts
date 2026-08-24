@@ -1,4 +1,5 @@
 import about from './about'
+import pageDescription from './pageDescription'
 import experience from './experience'
 import education from './education'
 import techstack from './techstack'
@@ -9,6 +10,7 @@ import richText from './richText'
 
 export const schemaTypes = [
   about,
+  pageDescription,
   experience,
   education,
   techstack,

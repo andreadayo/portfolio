@@ -2,6 +2,7 @@ import type {StructureResolver} from 'sanity/structure'
 import {UserIcon} from '@sanity/icons/User'
 import {CaseIcon} from '@sanity/icons/Case'
 import {BookIcon} from '@sanity/icons/Book'
+import {BlockContentIcon} from '@sanity/icons/BlockContent'
 import {CodeBlockIcon} from '@sanity/icons/CodeBlock'
 import {DocumentsIcon} from '@sanity/icons/Documents'
 import {EnvelopeIcon} from '@sanity/icons/Envelope'
@@ -18,6 +19,18 @@ export const structure: StructureResolver = (S, context) =>
         .title('About')
         .icon(UserIcon)
         .child(S.editor().id('about').schemaType('about').documentId('about')),
+
+      S.listItem()
+        .id('pageDescription')
+        .schemaType('pageDescription')
+        .title('Page Description')
+        .icon(BlockContentIcon)
+        .child(
+          S.editor()
+            .id('pageDescription')
+            .schemaType('pageDescription')
+            .documentId('pageDescription'),
+        ),
 
       orderableDocumentListDeskItem({
         type: 'experience',

@@ -3,6 +3,11 @@ import { createImageUrlBuilder } from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { PortableTextBlock } from "@portabletext/types";
 
+export type PageDescriptions = {
+  experienceDescription?: PortableTextBlock[] | null;
+  projectListDescription?: PortableTextBlock[] | null;
+};
+
 export type ExperiencePosition = {
   title?: string | null;
   startDate?: string | null;
@@ -93,6 +98,19 @@ export async function getAbout() {
       location,
       icon,
       description
+    }`,
+  );
+}
+
+export async function getPageDescriptions() {
+  if (!sanityClient) {
+    return null;
+  }
+
+  return sanityClient.fetch(
+    `*[_type == "pageDescription" && _id == "pageDescription"][0]{
+      experienceDescription,
+      projectListDescription,
     }`,
   );
 }

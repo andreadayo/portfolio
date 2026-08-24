@@ -1,25 +1,34 @@
+import Link from "next/link";
 import Container from "@/components/Container";
 import RichText from "@/components/RichText";
-import { getExperience, type ExperienceItem } from "@/lib/sanity";
+import {
+  getPageDescriptions,
+  getExperience,
+  type ExperienceItem,
+} from "@/lib/sanity";
 import type { PortableTextBlock } from "@portabletext/types";
 import { formatRange, formatLabel } from "@/lib/format";
 import styles from "./page.module.scss";
 
 export default async function ExperiencePage() {
+  const pageDescriptions = await getPageDescriptions();
   const experiences: ExperienceItem[] = await getExperience();
 
   return (
     <Container>
       <div className={styles.page}>
         <div className={styles.nav}>
-          <span>Home</span>
+          <Link href="/">Home</Link>
           <span>/</span>
           <span className={styles.active}>Experience</span>
         </div>
 
         <p className={styles.expDescription}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-          tristique elit ut est aliquet eleifend. Nulla sagittis, mauris nec.
+          {pageDescriptions?.experienceDescription && (
+            <div className={styles.expDescription}>
+              <RichText value={pageDescriptions.experienceDescription} />
+            </div>
+          )}
         </p>
 
         <div className={styles.companyList}>

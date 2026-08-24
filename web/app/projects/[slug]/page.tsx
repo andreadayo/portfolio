@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Button from "@/components/Button";
@@ -37,9 +38,9 @@ export default async function ProjectPage({ params }: Props) {
         <div className={styles.projects}>
           {/* Navigation */}
           <div className={styles.nav}>
-            <span>Home</span>
+            <Link href="/">Home</Link>
             <span>/</span>
-            <span>Projects</span>
+            <Link href="/projects">Projects</Link>
             <span>/</span>
             <span className={styles.active}>{project.title}</span>
           </div>
