@@ -114,6 +114,79 @@ export default defineType({
       },
     }),
 
+    // Button
+    defineArrayMember({
+      name: 'button',
+      title: 'Button',
+      type: 'object',
+      fields: [
+        {
+          name: 'label',
+          title: 'Label',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'href',
+          title: 'URL',
+          type: 'url',
+          validation: (Rule) =>
+            Rule.uri({
+              scheme: ['http', 'https', 'mailto', 'tel'],
+            }),
+        },
+        {
+          name: 'icon',
+          title: 'Icon',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Arrow Up', value: 'arrow-up'},
+              {title: 'Arrow Left', value: 'arrow-left'},
+              {title: 'Arrow Right', value: 'arrow-right'},
+              {title: 'Arrow Down', value: 'arrow-down'},
+              {title: 'Arrow Up Right', value: 'arrow-up-right'},
+            ],
+            layout: 'dropdown',
+          },
+        },
+        {
+          name: 'type',
+          title: 'Type',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Primary', value: 'primary'},
+              {title: 'Secondary', value: 'secondary'},
+            ],
+            layout: 'radio',
+            direction: 'horizontal',
+          },
+          initialValue: 'primary',
+        },
+        {
+          name: 'target',
+          title: 'Target',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Same tab', value: '_self'},
+              {title: 'New tab', value: '_blank'},
+            ],
+            layout: 'radio',
+            direction: 'horizontal',
+          },
+          initialValue: '_self',
+        },
+      ],
+      preview: {
+        select: {
+          title: 'label',
+          subtitle: 'href',
+        },
+      },
+    }),
+
     // Image
     defineArrayMember({
       type: 'image',

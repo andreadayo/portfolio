@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
+import Button from "@/components/Button";
 import CodeBlock from "@/components/CodeBlock";
 import SvgIcon from "@/components/SvgIcon";
 import { sanityImageUrl } from "@/lib/sanity";
@@ -54,6 +55,18 @@ export default function RichText({ value }: RichTextProps) {
             code: ({ value }) => {
               return <CodeBlock code={value.code} language={value.language} />;
             },
+
+            button: ({ value }) => (
+              <div className={styles.button}>
+                <Button
+                  label={value.label}
+                  href={value.href}
+                  icon={value.icon}
+                  type={value.type}
+                  target={value.target}
+                />
+              </div>
+            ),
           },
 
           marks: {
