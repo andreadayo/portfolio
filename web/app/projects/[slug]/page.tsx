@@ -114,6 +114,7 @@ export default async function ProjectPage({ params }: Props) {
                   priority
                   sizes="(max-width: 768px) 100vw, 100vw"
                   className={styles.imageContent}
+                  loading="eager"
                 />
               </div>
             )}

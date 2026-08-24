@@ -1,9 +1,10 @@
 .richText {
-  font-size: var(--text-base);
-  color: var(--text-secondary);
+  font-size: inherit;
+  color: inherit;
 
   p {
     margin: 0 0 1em;
+    color: var(--text-secondary);
   }
 
   p:last-child {
@@ -53,10 +54,10 @@
 
   figcaption {
     width: 100%;
-    margin-top: 0.5em;
+    margin-top: 0.25em;
     text-align: center;
-    font-size: 0.875em;
-    font-style: italic;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
   }
 
   .quote {
