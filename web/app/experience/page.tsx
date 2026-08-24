@@ -23,13 +23,11 @@ export default async function ExperiencePage() {
           <span className={styles.active}>Experience</span>
         </div>
 
-        <p className={styles.expDescription}>
-          {pageDescriptions?.experienceDescription && (
-            <div className={styles.expDescription}>
-              <RichText value={pageDescriptions.experienceDescription} />
-            </div>
-          )}
-        </p>
+        {pageDescriptions?.experienceDescription && (
+          <div className={styles.expDescription}>
+            <RichText value={pageDescriptions.experienceDescription} />
+          </div>
+        )}
 
         <div className={styles.companyList}>
           {experiences.map((experience: ExperienceItem) => (

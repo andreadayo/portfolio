@@ -7,6 +7,7 @@ import {CodeBlockIcon} from '@sanity/icons/CodeBlock'
 import {DocumentsIcon} from '@sanity/icons/Documents'
 import {EnvelopeIcon} from '@sanity/icons/Envelope'
 import {BookmarkIcon} from '@sanity/icons/Bookmark'
+import {SearchIcon} from '@sanity/icons/Search'
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 export const structure: StructureResolver = (S, context) =>
@@ -77,4 +78,11 @@ export const structure: StructureResolver = (S, context) =>
         .title('Footer')
         .icon(BookmarkIcon)
         .child(S.editor().id('footer').schemaType('footer').documentId('footer')),
+
+      S.listItem()
+        .id('seo')
+        .schemaType('seo')
+        .title('SEO')
+        .icon(SearchIcon)
+        .child(S.editor().id('seo').schemaType('seo').documentId('seo')),
     ])

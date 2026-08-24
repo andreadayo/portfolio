@@ -7,6 +7,7 @@ import projects from './projects'
 import contact from './contact'
 import footer from './footer'
 import richText from './richText'
+import seo from './seo'
 
 export const schemaTypes = [
   about,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   contact,
   footer,
   richText,
+  seo,
 ]

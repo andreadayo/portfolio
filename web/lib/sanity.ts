@@ -76,7 +76,9 @@ export const sanityClient =
 export const imageUrlBuilder =
   projectId && dataset ? createImageUrlBuilder({ projectId, dataset }) : null;
 
-export function sanityImageUrl(source: SanityImageSource | null | undefined) {
+export function sanityImageUrl(
+  source: SanityImageSource | SEOImage | null | undefined,
+) {
   return source && imageUrlBuilder
     ? imageUrlBuilder
         .image(source as SanityImageSource)
@@ -210,6 +212,40 @@ export async function getFooter() {
       title,
       subtitle,
       copyright,
+    }`,
+  );
+}
+
+export type SEOImage = {
+  asset?: {
+    _ref?: string;
+    _type?: string;
+  };
+  alt?: string | null;
+};
+
+export type SEO = {
+  title?: string | null;
+  description?: string | null;
+  keywords?: string[] | null;
+  image?: SEOImage | null;
+  author?: string | null;
+  siteUrl?: string | null;
+};
+
+export async function getSEO(): Promise<SEO | null> {
+  if (!sanityClient) {
+    return null;
+  }
+
+  return sanityClient.fetch<SEO | null>(
+    `*[_type == "seo"][0]{
+      title,
+      description,
+      keywords,
+      image,
+      author,
+      siteUrl
     }`,
   );
 }

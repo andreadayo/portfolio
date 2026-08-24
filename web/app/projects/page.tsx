@@ -24,13 +24,11 @@ export default async function Projects() {
           </div>
 
           {/* Description */}
-          <p className={styles.expDescription}>
-            {pageDescriptions?.projectListDescription && (
-              <div className={styles.expDescription}>
-                <RichText value={pageDescriptions.projectListDescription} />
-              </div>
-            )}
-          </p>
+          {pageDescriptions?.projectListDescription && (
+            <div className={styles.expDescription}>
+              <RichText value={pageDescriptions.projectListDescription} />
+            </div>
+          )}
 
           {/* Project List */}
           <ProjectList projects={projectsWithImages} />
