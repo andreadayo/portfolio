@@ -10,4 +10,13 @@
     grid-template-columns: 1fr 1fr;
     gap: 1.5em;
   }
+
+  .empty {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary);
+  }
 }

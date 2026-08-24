@@ -5,6 +5,7 @@ export default defineType({
   title: 'Rich text',
   type: 'array',
   of: [
+    // Normal text
     defineArrayMember({
       type: 'block',
       marks: {
@@ -39,6 +40,54 @@ export default defineType({
         ],
       },
     }),
+
+    // Quote block
+    defineArrayMember({
+      name: 'quote',
+      title: 'Quote',
+      type: 'object',
+      fields: [
+        {
+          name: 'text',
+          title: 'Quote',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'author',
+          title: 'Author',
+          type: 'string',
+        },
+      ],
+      preview: {
+        select: {
+          title: 'text',
+          subtitle: 'author',
+        },
+      },
+    }),
+
+    // Code block
+    defineArrayMember({
+      name: 'code',
+      title: 'Code',
+      type: 'object',
+      fields: [
+        {
+          name: 'code',
+          title: 'Code',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+      preview: {
+        select: {
+          title: 'code',
+        },
+      },
+    }),
+
+    // Image
     defineArrayMember({
       type: 'image',
       options: {hotspot: true},

@@ -18,6 +18,21 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     },
+    {name: 'isFeatured', title: 'Featured project', type: 'boolean', initialValue: false},
+    {
+      name: 'type',
+      title: 'Type',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Website', value: 'website'},
+          {title: 'Design', value: 'design'},
+          {title: 'Playground', value: 'playground'},
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+    },
     {
       name: 'title',
       title: 'Project title',

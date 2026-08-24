@@ -2,8 +2,13 @@ import styles from "./styles.module.scss";
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
 import Project from "@/components/Project";
+import { getProjects, sanityImageUrl, type ProjectItem } from "@/lib/sanity";
 
-export default function Projects() {
+export default async function Projects() {
+  const projects: ProjectItem[] = await getProjects();
+
+  const featuredProjects = projects.filter((project) => project.isFeatured);
+
   return (
     <Container>
       <div className={styles.projects}>
@@ -15,10 +20,21 @@ export default function Projects() {
           actionLink="/projects"
         />
 
-        <div className={styles.projectsList}>
-          <Project title="Project 1" subtitle="Website" href="project-1" />
-          <Project title="Project 2" subtitle="Design" href="project-2" />
-        </div>
+        {featuredProjects.length > 0 ? (
+          <div className={styles.projectsList}>
+            {featuredProjects.map((project) => (
+              <Project
+                key={project._id}
+                title={project.title ?? ""}
+                subtitle={project.type ?? ""}
+                href={project.slug?.current ?? ""}
+                featuredImage={sanityImageUrl(project.featuredImage)}
+              />
+            ))}
+          </div>
+        ) : (
+          <span className={styles.empty}>No featured projects.</span>
+        )}
       </div>
     </Container>
   );

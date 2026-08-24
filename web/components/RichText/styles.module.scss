@@ -41,23 +41,58 @@
     padding-left: 1.5em;
   }
 
-  blockquote {
-    border-left: 2px solid var(--text-primary);
-    margin: 1em 0;
-    padding-left: 1em;
-  }
-
   figure {
     margin: 1.5em 0;
   }
 
   figure img {
+    width: 100%;
     height: auto;
     max-width: 100%;
   }
 
   figcaption {
-    font-size: 0.875em;
+    width: 100%;
     margin-top: 0.5em;
+    text-align: center;
+    font-size: 0.875em;
+    font-style: italic;
+  }
+
+  .quote {
+    margin: 1.5em 0;
+    padding: 0.75em 0.75em 0.75em 1.25em;
+
+    border-left: 0.188em solid var(--text-secondary);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+
+    .quoteText {
+      color: var(--text-primary);
+    }
+
+    .author {
+      font-family: var(--font-azeret-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+  }
+
+  .codeBlock {
+    margin: 1.5em 0;
+    padding: 1.5em;
+    overflow-x: auto;
+    background: var(--surface);
+  }
+
+  .code {
+    font-family: var(--font-azeret-mono);
+    font-size: var(--text-xs);
+    line-height: 135%;
+    color: var(--text-secondary);
+    white-space: pre;
   }
 }

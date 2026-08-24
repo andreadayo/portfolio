@@ -1,8 +1,12 @@
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
+import { getExperience, type ExperienceItem } from "@/lib/sanity";
+import { formatExperienceRange } from "@/lib/format";
 import styles from "./styles.module.scss";
 
-export default function Experience() {
+export default async function Experience() {
+  const experiences: ExperienceItem[] = await getExperience();
+
   return (
     <Container>
       <div className={styles.experience}>
@@ -15,25 +19,26 @@ export default function Experience() {
         />
 
         <div className={styles.workList}>
-          <div className={styles.workItem}>
-            <h2 className={styles.title}>Procter & Gamble</h2>
-            <p className={styles.subtitle}>
-              <span className={styles.role}>SAP Software Engineer</span>
-              <span className={styles.duration}>Apr &apos;26 - Present</span>
-            </p>
-            <p className={styles.subtitle}>
-              <span className={styles.role}>SAP Software Engineer</span>
-              <span className={styles.duration}>Apr &apos;26 - Present</span>
-            </p>
-          </div>
-
-          <div className={styles.workItem}>
-            <h2 className={styles.title}>Procter & Gamble</h2>
-            <p className={styles.subtitle}>
-              <span className={styles.role}>SAP Software Engineer</span>
-              <span className={styles.duration}>Apr &apos;26 - Present</span>
-            </p>
-          </div>
+          {experiences.slice(0, 3).map((experience: ExperienceItem) => (
+            <div className={styles.workItem} key={experience._id}>
+              <h2 className={styles.title}>{experience.company}</h2>
+              {(experience.positions ?? []).map((position, index: number) => (
+                <p
+                  className={styles.subtitle}
+                  key={`${experience._id}-${position.title}-${index}`}
+                >
+                  <span className={styles.role}>{position.title}</span>
+                  <span className={styles.duration}>
+                    {formatExperienceRange(
+                      position.startDate,
+                      position.endDate,
+                      position.isCurrent,
+                    )}
+                  </span>
+                </p>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </Container>

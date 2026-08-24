@@ -1,0 +1,29 @@
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  font-family: var(--font-azeret-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .active {
+    color: var(--text-primary);
+  }
+}
+
+.projectsList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+}

@@ -69,9 +69,15 @@
     gap: 1.5em;
 
     .image {
+      position: relative;
       width: 100%;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
       background: var(--surface);
+    }
+
+    .imageContent {
+      object-fit: cover;
     }
 
     .paragraph {
@@ -92,6 +98,7 @@
       }
 
       .caption {
+        width: 100%;
         font-style: italic;
         font-size: var(--text-sm);
         color: var(--text-secondary);

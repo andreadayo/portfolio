@@ -1,106 +1,80 @@
 import Container from "@/components/Container";
+import RichText from "@/components/RichText";
+import { getExperience, type ExperienceItem } from "@/lib/sanity";
+import type { PortableTextBlock } from "@portabletext/types";
+import { formatRange, formatLabel } from "@/lib/format";
 import styles from "./page.module.scss";
 
-export default function Experience() {
+export default async function ExperiencePage() {
+  const experiences: ExperienceItem[] = await getExperience();
+
   return (
     <Container>
       <div className={styles.page}>
-        {/* Navigation */}
         <div className={styles.nav}>
           <span>Home</span>
           <span>/</span>
           <span className={styles.active}>Experience</span>
         </div>
 
-        {/* Description */}
         <p className={styles.expDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
           tristique elit ut est aliquet eleifend. Nulla sagittis, mauris nec.
         </p>
 
-        {/* Company List */}
         <div className={styles.companyList}>
-          <div className={styles.companyItem}>
-            <div className={styles.header}>
-              <div className={styles.icon}>PG</div>
-              <div className={styles.text}>
-                <h2 className={styles.title}>Procter & Gamble</h2>
-                <span className={styles.subtitle}>
-                  Full-time • Taguig, National Capital Region, Philippines •
-                  Hybrid
-                </span>
-              </div>
-            </div>
-
-            {/* Role List */}
-            <div className={styles.roleItem}>
-              <div className={styles.roleInner}>
-                <div className={styles.header}>
-                  <div className={styles.role}>SAP Software Engineer</div>
-                  <div className={styles.duration}>Apr &apos;26 - Present</div>
+          {experiences.map((experience: ExperienceItem) => (
+            <div className={styles.companyItem} key={experience._id}>
+              <div className={styles.header}>
+                <div className={styles.icon}>
+                  {(experience.icon ?? "?").slice(0, 2).toUpperCase()}
                 </div>
-                <span className={styles.description}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas tristique elit ut est aliquet eleifend. Nulla
-                  sagittis, mauris nec.
-                  <br />
-                  <br />
-                  Donec aliquet, odio vitae pharetra tincidunt, sem nulla
-                  gravida neque, ut sagittis risus tellus quis arcu.
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.roleItem}>
-              <div className={styles.roleInner}>
-                <div className={styles.header}>
-                  <div className={styles.role}>SAP Software Engineer</div>
-                  <div className={styles.duration}>Apr &apos;26 - Present</div>
+                <div className={styles.text}>
+                  <h2 className={styles.title}>{experience.company}</h2>
+                  <span className={styles.subtitle}>
+                    {[
+                      experience.employmentType
+                        ? experience.employmentType.charAt(0).toUpperCase() +
+                          experience.employmentType.slice(1)
+                        : null,
+                      experience.location,
+                      formatLabel(experience.workMode),
+                    ]
+                      .filter(Boolean)
+                      .join(" • ")}
+                  </span>
                 </div>
-                <span className={styles.description}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas tristique elit ut est aliquet eleifend. Nulla
-                  sagittis, mauris nec.
-                  <br />
-                  <br />
-                  Donec aliquet, odio vitae pharetra tincidunt, sem nulla
-                  gravida neque, ut sagittis risus tellus quis arcu.
-                </span>
               </div>
-            </div>
-          </div>
 
-          <div className={styles.companyItem}>
-            <div className={styles.header}>
-              <div className={styles.icon}>PG</div>
-              <div className={styles.text}>
-                <h2 className={styles.title}>Procter & Gamble</h2>
-                <span className={styles.subtitle}>
-                  Full-time • Taguig, National Capital Region, Philippines •
-                  Hybrid
-                </span>
-              </div>
-            </div>
+              {(experience.positions ?? []).map((position, index: number) => (
+                <div
+                  className={styles.roleItem}
+                  key={`${experience._id}-${position.title}-${index}`}
+                >
+                  <div className={styles.roleInner}>
+                    <div className={styles.header}>
+                      <div className={styles.role}>{position.title}</div>
+                      <div className={styles.duration}>
+                        {formatRange(
+                          position.startDate,
+                          position.endDate,
+                          position.isCurrent,
+                        )}
+                      </div>
+                    </div>
 
-            {/* Role List */}
-            <div className={styles.roleItem}>
-              <div className={styles.roleInner}>
-                <div className={styles.header}>
-                  <div className={styles.role}>SAP Software Engineer</div>
-                  <div className={styles.duration}>Apr &apos;26 - Present</div>
+                    {position.description && (
+                      <div className={styles.description}>
+                        <RichText
+                          value={position.description as PortableTextBlock[]}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <span className={styles.description}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas tristique elit ut est aliquet eleifend. Nulla
-                  sagittis, mauris nec.
-                  <br />
-                  <br />
-                  Donec aliquet, odio vitae pharetra tincidunt, sem nulla
-                  gravida neque, ut sagittis risus tellus quis arcu.
-                </span>
-              </div>
+              ))}
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </Container>

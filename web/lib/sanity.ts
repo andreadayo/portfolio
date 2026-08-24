@@ -1,6 +1,58 @@
 import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url";
+import type { PortableTextBlock } from "@portabletext/types";
+
+export type ExperiencePosition = {
+  title?: string | null;
+  startDate?: string | null;
+  isCurrent?: boolean | null;
+  endDate?: string | null;
+  description?: PortableTextBlock[] | null;
+};
+
+export type ExperienceItem = {
+  _id: string;
+  company?: string | null;
+  employmentType?: string | null;
+  location?: string | null;
+  workMode?: string | null;
+  icon?: string | null;
+  positions?: ExperiencePosition[] | null;
+};
+
+export type EducationItem = {
+  _id: string;
+  school?: string | null;
+  program?: string | null;
+  startDate?: string | null;
+  isCurrent?: boolean | null;
+  endDate?: string | null;
+};
+
+export type TechStackItem = {
+  _id: string;
+  title?: string | null;
+  description?: string | null;
+};
+
+export type ProjectItem = {
+  _id: string;
+  slug?: { current?: string | null } | null;
+  title?: string | null;
+  subtitle?: string | null;
+  type?: "website" | "design" | "playground" | null;
+  isFeatured?: boolean | null;
+  techStack?: string[] | null;
+  liveLink?: string | null;
+  githubLink?: string | null;
+  figmaLink?: string | null;
+  featuredImage?: SanityImageSource | null;
+  description?: PortableTextBlock[] | null;
+};
+
+export type ContactLink = { name?: string | null; link?: string | null };
+export type Contact = { _id: string; links?: ContactLink[] | null };
 
 const projectId =
   process.env.SANITY_PROJECT_ID ?? process.env.SANITY_STUDIO_PROJECT_ID;
@@ -41,6 +93,105 @@ export async function getAbout() {
       location,
       icon,
       description
+    }`,
+  );
+}
+
+export async function getExperience(): Promise<ExperienceItem[]> {
+  if (!sanityClient) {
+    return [];
+  }
+
+  return sanityClient.fetch<ExperienceItem[]>(
+    `*[_type == "experience"] | order(orderRank asc) {
+      _id,
+      company,
+      employmentType,
+      location,
+      workMode,
+      icon,
+      positions[] {
+        title,
+        startDate,
+        isCurrent,
+        endDate,
+        description
+      }
+    }`,
+  );
+}
+
+export async function getEducation(): Promise<EducationItem[]> {
+  if (!sanityClient) {
+    return [];
+  }
+  return sanityClient.fetch<EducationItem[]>(
+    `*[_type == "education"] | order(orderRank asc) { _id, school, program, startDate, isCurrent, endDate }`,
+  );
+}
+
+export async function getTechStack(): Promise<TechStackItem[]> {
+  if (!sanityClient) {
+    return [];
+  }
+  return sanityClient.fetch<TechStackItem[]>(
+    `*[_type == "techStack"] | order(orderRank asc) { _id, title, description }`,
+  );
+}
+
+export async function getProjects(): Promise<ProjectItem[]> {
+  if (!sanityClient) {
+    return [];
+  }
+  return sanityClient.fetch<ProjectItem[]>(
+    `*[_type == "projects"] | order(orderRank asc) { _id, slug, title, subtitle, type, isFeatured, techStack, liveLink, githubLink, figmaLink, featuredImage, description }`,
+  );
+}
+
+export async function getProjectBySlug(
+  slug: string,
+): Promise<ProjectItem | null> {
+  if (!sanityClient) {
+    return null;
+  }
+
+  return sanityClient.fetch<ProjectItem | null>(
+    `*[_type == "projects" && slug.current == $slug][0] {
+      _id,
+      title,
+      subtitle,
+      type,
+      techStack,
+      liveLink,
+      githubLink,
+      figmaLink,
+      featuredImage,
+      description,
+      slug
+    }`,
+    { slug },
+  );
+}
+
+export async function getContact(): Promise<ContactLink[]> {
+  if (!sanityClient) {
+    return [];
+  }
+  return sanityClient.fetch<ContactLink[]>(
+    `*[_type == "contact" && _id == "contact"][0].links[] { name, link }`,
+  );
+}
+
+export async function getFooter() {
+  if (!sanityClient) {
+    return null;
+  }
+
+  return sanityClient.fetch(
+    `*[_type == "footer" && _id == "footer"][0]{
+      title,
+      subtitle,
+      copyright,
     }`,
   );
 }
