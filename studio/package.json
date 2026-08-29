@@ -15,12 +15,12 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/code-input": "^7.3.7",
-    "@sanity/orderable-document-list": "2.0.22",
-    "@sanity/vision": "6.10.2-next.25",
+    "@sanity/code-input": "7.3.7",
+    "@sanity/orderable-document-list": "2.0.23",
+    "@sanity/vision": "^6.11.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sanity": "6.10.2-next.25",
+    "sanity": "^6.11.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
