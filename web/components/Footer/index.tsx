@@ -27,17 +27,11 @@ export default async function Footer() {
             <span className={styles.subtitle}>{footer?.subtitle}</span>
           </div>
           <div className={styles.right}>
-            {contactLinks.map((contact: ContactLink) => (
+            {(contactLinks ?? []).map((contact: ContactLink) => (
               <a
+                key={contact._key}
                 className={styles.link}
                 href={contact.link ?? "#"}
-                key={contact.name}
-                target={contact.link?.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  contact.link?.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
               >
                 {contact.name}
               </a>

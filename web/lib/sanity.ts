@@ -56,7 +56,11 @@ export type ProjectItem = {
   description?: PortableTextBlock[] | null;
 };
 
-export type ContactLink = { name?: string | null; link?: string | null };
+export type ContactLink = {
+  _key: string;
+  name?: string | null;
+  link?: string | null;
+};
 export type Contact = { _id: string; links?: ContactLink[] | null };
 
 const projectId =
