@@ -77,7 +77,6 @@ export default function ProjectList({ projects }: Props) {
         </div>
       ) : (
         <p className={styles.emptyState}>
-          {" "}
           {filter === "all"
             ? "No projects found."
             : `No ${filter} projects found.`}

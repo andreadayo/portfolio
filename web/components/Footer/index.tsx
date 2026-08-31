@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
 import ActionLink from "@/components/ActionLink";
 import Container from "@/components/Container";
+import SmartLink from "@/components/SmartLink";
 import SvgIcon from "@/components/SvgIcon";
 import { getFooter, getContact, type ContactLink } from "@/lib/sanity";
 
@@ -28,13 +29,13 @@ export default async function Footer() {
           </div>
           <div className={styles.right}>
             {(contactLinks ?? []).map((contact: ContactLink) => (
-              <a
+              <SmartLink
                 key={contact._key}
                 className={styles.link}
-                href={contact.link ?? "#"}
+                href={contact.link ?? undefined}
               >
                 {contact.name}
-              </a>
+              </SmartLink>
             ))}
           </div>
         </div>
