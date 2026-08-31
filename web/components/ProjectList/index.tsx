@@ -1,15 +1,23 @@
 "use client";
+
 import { useState } from "react";
 import Project from "@/components/Project";
 import type { ProjectItem } from "@/lib/sanity";
 import styles from "./styles.module.scss";
+
 type Filter = "all" | "website" | "design" | "playground";
-type ProjectWithImage = ProjectItem & { featuredImageUrl: string | null };
+
+type ProjectWithImage = ProjectItem & {
+  featuredImageUrl: string | null;
+};
+
 interface Props {
   projects: ProjectWithImage[];
 }
+
 export default function ProjectList({ projects }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
+
   const shownProjects = projects.filter((project) => project.isShown);
 
   const filteredProjects =
@@ -26,21 +34,27 @@ export default function ProjectList({ projects }: Props) {
         >
           All
         </button>
+
         <span>•</span>
+
         <button
           className={filter === "website" ? styles.active : ""}
           onClick={() => setFilter("website")}
         >
           Website
         </button>
+
         <span>•</span>
+
         <button
           className={filter === "design" ? styles.active : ""}
           onClick={() => setFilter("design")}
         >
           Design
         </button>
+
         <span>•</span>
+
         <button
           className={filter === "playground" ? styles.active : ""}
           onClick={() => setFilter("playground")}
@@ -48,17 +62,27 @@ export default function ProjectList({ projects }: Props) {
           Playground
         </button>
       </div>
-      <div className={styles.projectsList}>
-        {filteredProjects.map((project) => (
-          <Project
-            key={project._id}
-            title={project.title ?? ""}
-            subtitle={project.subtitle ?? ""}
-            href={project.slug?.current ?? ""}
-            featuredImage={project.featuredImageUrl}
-          />
-        ))}
-      </div>
+
+      {filteredProjects.length > 0 ? (
+        <div className={styles.projectsList}>
+          {filteredProjects.map((project) => (
+            <Project
+              key={project._id}
+              title={project.title ?? ""}
+              subtitle={project.subtitle ?? ""}
+              href={project.slug?.current ?? ""}
+              featuredImage={project.featuredImageUrl}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className={styles.emptyState}>
+          {" "}
+          {filter === "all"
+            ? "No projects found."
+            : `No ${filter} projects found.`}
+        </p>
+      )}
     </>
   );
 }

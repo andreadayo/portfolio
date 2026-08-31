@@ -27,3 +27,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5em;
 }
+
+.emptyState {
+  width: 100%;
+  text-align: center;
+  color: var(--text-secondary);
+}
