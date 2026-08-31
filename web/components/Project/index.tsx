@@ -20,14 +20,16 @@ export default function Project({
     <Link href={`/projects/${href}`} className={styles.projectItem}>
       <div className={styles.imageContainer}>
         {featuredImage && (
-          <Image
-            src={featuredImage}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className={styles.image}
-            loading="eager"
-          />
+          <div className={styles.imageWrapper}>
+            <Image
+              src={featuredImage}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 80vw, 40vw"
+              className={styles.image}
+              loading="eager"
+            />
+          </div>
         )}
       </div>
       <div className={styles.text}>

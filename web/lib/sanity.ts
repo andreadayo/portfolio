@@ -47,6 +47,7 @@ export type ProjectItem = {
   title?: string | null;
   subtitle?: string | null;
   type?: "website" | "design" | "playground" | null;
+  isShown?: boolean | null;
   isFeatured?: boolean | null;
   techStack?: string[] | null;
   liveLink?: string | null;
@@ -168,7 +169,7 @@ export async function getProjects(): Promise<ProjectItem[]> {
     return [];
   }
   return sanityClient.fetch<ProjectItem[]>(
-    `*[_type == "projects"] | order(orderRank asc) { _id, slug, title, subtitle, type, isFeatured, techStack, liveLink, githubLink, figmaLink, featuredImage, description }`,
+    `*[_type == "projects"] | order(orderRank asc) { _id, slug, title, subtitle, type, isShown, isFeatured, techStack, liveLink, githubLink, figmaLink, featuredImage, description }`,
   );
 }
 

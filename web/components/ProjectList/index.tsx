@@ -10,10 +10,12 @@ interface Props {
 }
 export default function ProjectList({ projects }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
+  const shownProjects = projects.filter((project) => project.isShown);
+
   const filteredProjects =
     filter === "all"
-      ? projects
-      : projects.filter((project) => project.type === filter);
+      ? shownProjects
+      : shownProjects.filter((project) => project.type === filter);
 
   return (
     <>
@@ -51,7 +53,7 @@ export default function ProjectList({ projects }: Props) {
           <Project
             key={project._id}
             title={project.title ?? ""}
-            subtitle={project.type ?? ""}
+            subtitle={project.subtitle ?? ""}
             href={project.slug?.current ?? ""}
             featuredImage={project.featuredImageUrl}
           />
