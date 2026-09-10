@@ -7,7 +7,9 @@ import { getProjects, sanityImageUrl, type ProjectItem } from "@/lib/sanity";
 export default async function Projects() {
   const projects: ProjectItem[] = await getProjects();
 
-  const featuredProjects = projects.filter((project) => project.isFeatured);
+  const featuredProjects = projects.filter(
+    (project) => project.isShown && project.isFeatured,
+  );
 
   return (
     <Container>
@@ -26,7 +28,7 @@ export default async function Projects() {
               <Project
                 key={project._id}
                 title={project.title ?? ""}
-                subtitle={project.type ?? ""}
+                subtitle={project.subtitle ?? ""}
                 href={project.slug?.current ?? ""}
                 featuredImage={sanityImageUrl(project.featuredImage)}
               />

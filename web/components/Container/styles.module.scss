@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 $border: 0.063em solid var(--surface);
 $min-height: 3.125em;
 
@@ -13,6 +15,16 @@ $min-height: 3.125em;
   width: 2.5em;
   min-height: $min-height;
   flex: 0 0 2.5em;
+
+  @media only screen and (max-width: $breakpoint-md) {
+    width: 1.5em;
+    flex-basis: 1.5em;
+  }
+
+  @media only screen and (max-width: $breakpoint-xs) {
+    width: 0.75em;
+    flex-basis: 0.75em;
+  }
 }
 
 .left {
@@ -24,10 +36,47 @@ $min-height: 3.125em;
 }
 
 .inner {
-  width: 37.5em;
+  width: min(37.5em, calc(100% - 5em));
+  flex: 0 1 auto;
   min-height: $min-height;
   border-left: $border;
   border-right: $border;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: $breakpoint-md) {
+    width: calc(100% - 8em);
+  }
+
+  @media only screen and (max-width: $breakpoint-sm) {
+    width: calc(100% - 5em);
+  }
+
+  @media only screen and (max-width: $breakpoint-xs) {
+    width: calc(100% - 2.5em);
+  }
+}
+
+.defaultPadding {
+  padding: 3em 2.5em;
+
+  @media only screen and (max-width: $breakpoint-sm) {
+    padding: 2.5em 2em;
+  }
+
+  @media only screen and (max-width: $breakpoint-xs) {
+    padding: 2.5em 1.5em;
+  }
+}
+
+.smallPadding {
+  padding: 1em 2.5em;
+
+  @media only screen and (max-width: $breakpoint-sm) {
+    padding: 1em 2em;
+  }
+
+  @media only screen and (max-width: $breakpoint-xs) {
+    padding: 1em 1.5em;
+  }
 }

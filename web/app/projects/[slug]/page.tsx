@@ -17,6 +17,13 @@ interface Props {
   }>;
 }
 
+function projectOrder(value: string) {
+  return [...value].reduce(
+    (hash, character) => (hash * 31 + character.charCodeAt(0)) >>> 0,
+    0,
+  );
+}
+
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
 
@@ -28,7 +35,14 @@ export default async function ProjectPage({ params }: Props) {
 
   const projects = await getProjects();
 
-  const otherProjects = projects.filter((item) => item._id !== project._id);
+  const otherProjects = projects
+    .filter((item) => item._id !== project._id)
+    .sort((firstProject, secondProject) => {
+      const firstOrder = projectOrder(`${slug}:${firstProject._id}`);
+      const secondOrder = projectOrder(`${slug}:${secondProject._id}`);
+
+      return firstOrder - secondOrder;
+    });
 
   const featuredImageUrl = sanityImageUrl(project.featuredImage);
 
@@ -48,11 +62,15 @@ export default async function ProjectPage({ params }: Props) {
           {/* Project Header */}
           <div className={styles.projectHeader}>
             <div className={styles.projectDetails}>
-              <h1 className={styles.projectTitle}>{project.title}</h1>
+              <div className={styles.projectTitleContainer}>
+                <h1 className={styles.projectTitle}>{project.title}</h1>
 
-              {project.subtitle && (
-                <p className={styles.projectDescription}>{project.subtitle}</p>
-              )}
+                {project.subtitle && (
+                  <p className={styles.projectDescription}>
+                    {project.subtitle}
+                  </p>
+                )}
+              </div>
 
               {/* Technologies */}
               {project.techStack && project.techStack.length > 0 && (
@@ -129,7 +147,7 @@ export default async function ProjectPage({ params }: Props) {
       {otherProjects.length > 0 && (
         <Container>
           <div className={styles.projectsList}>
-            {otherProjects.map((otherProject) => (
+            {otherProjects.slice(0, 2).map((otherProject) => (
               <Project
                 key={otherProject._id}
                 title={otherProject.title ?? ""}

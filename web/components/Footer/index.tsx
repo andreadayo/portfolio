@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
 import ActionLink from "@/components/ActionLink";
 import Container from "@/components/Container";
+import SmartLink from "@/components/SmartLink";
 import SvgIcon from "@/components/SvgIcon";
 import { getFooter, getContact, type ContactLink } from "@/lib/sanity";
 
@@ -27,31 +28,27 @@ export default async function Footer() {
             <span className={styles.subtitle}>{footer?.subtitle}</span>
           </div>
           <div className={styles.right}>
-            {contactLinks.map((contact: ContactLink) => (
-              <a
+            {(contactLinks ?? []).map((contact: ContactLink) => (
+              <SmartLink
+                key={contact._key}
                 className={styles.link}
-                href={contact.link ?? "#"}
-                key={contact.name}
-                target={contact.link?.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  contact.link?.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
+                href={contact.link ?? undefined}
               >
                 {contact.name}
-              </a>
+              </SmartLink>
             ))}
           </div>
         </div>
       </Container>
       <Container smallPadding isLast>
-        <span className={styles.copyright}>
-          © {currentYear} {footer?.copyright}
-        </span>
-        <a href="#top">
-          <ActionLink label="Back to top" icon="arrow-up" side="right" />
-        </a>
+        <div className={styles.bottom}>
+          <span className={styles.copyright}>
+            © {currentYear} {footer?.copyright}
+          </span>
+          <a className={styles.action} href="#top">
+            <ActionLink label="Back to top" icon="arrow-up" side="right" />
+          </a>
+        </div>
       </Container>
     </div>
   );

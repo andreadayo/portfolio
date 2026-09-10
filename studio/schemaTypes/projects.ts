@@ -18,6 +18,7 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     },
+    {name: 'isShown', title: 'Is Shown', type: 'boolean', initialValue: true},
     {name: 'isFeatured', title: 'Featured project', type: 'boolean', initialValue: false},
     {
       name: 'type',

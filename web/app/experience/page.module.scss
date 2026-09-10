@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 .page {
   display: flex;
   flex-direction: column;
@@ -40,14 +42,19 @@
         .icon {
           width: 2.75em;
           height: 2.75em;
+          aspect-ratio: 1/1;
           display: flex;
           justify-content: center;
           align-items: center;
           border-radius: 0.125em;
-          background: var(--text-primary);
+          background: var(--surface);
           font-size: var(--text-xs);
           font-weight: 500;
-          color: var(--background);
+          color: var(--text-primary);
+
+          @media only screen and (max-width: $breakpoint-sm) {
+            display: none;
+          }
         }
 
         .text {
@@ -70,6 +77,10 @@
       .roleItem {
         padding-left: 3.5em;
 
+        @media only screen and (max-width: $breakpoint-sm) {
+          padding-left: 0.5em;
+        }
+
         .roleInner {
           padding-left: 1em;
           border-left: 0.063em solid var(--surface);
@@ -77,10 +88,20 @@
           flex-direction: column;
           gap: 0.625em;
 
+          @media only screen and (max-width: $breakpoint-sm) {
+            align-items: flex-start;
+          }
+
           .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            @media only screen and (max-width: $breakpoint-sm) {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 0.25em;
+            }
 
             .role {
               font-size: var(--text-sm);

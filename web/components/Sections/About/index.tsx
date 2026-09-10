@@ -30,7 +30,9 @@ export default async function About() {
             </p>
           </div>
         </div>
-        {about?.description && <RichText value={about.description} />}
+        <div className={styles.description}>
+          {about?.description && <RichText value={about.description} />}
+        </div>
       </div>
     </Container>
   );
