@@ -62,10 +62,15 @@ export type ContactLink = {
   name?: string | null;
   link?: string | null;
 };
-export type Contact = { _id: string; links?: ContactLink[] | null };
+
+export type Contact = {
+  _id: string;
+  links?: ContactLink[] | null;
+};
 
 const projectId =
   process.env.SANITY_PROJECT_ID ?? process.env.SANITY_STUDIO_PROJECT_ID;
+
 const dataset = process.env.SANITY_DATASET ?? process.env.SANITY_STUDIO_DATASET;
 
 export const sanityClient =
@@ -74,7 +79,7 @@ export const sanityClient =
         projectId,
         dataset,
         apiVersion: "2026-08-29",
-        useCdn: true,
+        useCdn: false,
       })
     : null;
 
@@ -106,6 +111,12 @@ export async function getAbout() {
       icon,
       description
     }`,
+    {},
+    {
+      next: {
+        tags: ["about"],
+      },
+    },
   );
 }
 
@@ -119,6 +130,12 @@ export async function getPageDescriptions() {
       experienceDescription,
       projectListDescription,
     }`,
+    {},
+    {
+      next: {
+        tags: ["pageDescription"],
+      },
+    },
   );
 }
 
@@ -143,6 +160,12 @@ export async function getExperience(): Promise<ExperienceItem[]> {
         description
       }
     }`,
+    {},
+    {
+      next: {
+        tags: ["experience"],
+      },
+    },
   );
 }
 
@@ -150,8 +173,22 @@ export async function getEducation(): Promise<EducationItem[]> {
   if (!sanityClient) {
     return [];
   }
+
   return sanityClient.fetch<EducationItem[]>(
-    `*[_type == "education"] | order(orderRank asc) { _id, school, program, startDate, isCurrent, endDate }`,
+    `*[_type == "education"] | order(orderRank asc) {
+      _id,
+      school,
+      program,
+      startDate,
+      isCurrent,
+      endDate
+    }`,
+    {},
+    {
+      next: {
+        tags: ["education"],
+      },
+    },
   );
 }
 
@@ -159,8 +196,19 @@ export async function getTechStack(): Promise<TechStackItem[]> {
   if (!sanityClient) {
     return [];
   }
+
   return sanityClient.fetch<TechStackItem[]>(
-    `*[_type == "techStack"] | order(orderRank asc) { _id, title, description }`,
+    `*[_type == "techStack"] | order(orderRank asc) {
+      _id,
+      title,
+      description
+    }`,
+    {},
+    {
+      next: {
+        tags: ["techStack"],
+      },
+    },
   );
 }
 
@@ -168,8 +216,29 @@ export async function getProjects(): Promise<ProjectItem[]> {
   if (!sanityClient) {
     return [];
   }
+
   return sanityClient.fetch<ProjectItem[]>(
-    `*[_type == "projects"] | order(orderRank asc) { _id, slug, title, subtitle, type, isShown, isFeatured, techStack, liveLink, githubLink, figmaLink, featuredImage, description }`,
+    `*[_type == "projects"] | order(orderRank asc) {
+      _id,
+      slug,
+      title,
+      subtitle,
+      type,
+      isShown,
+      isFeatured,
+      techStack,
+      liveLink,
+      githubLink,
+      figmaLink,
+      featuredImage,
+      description
+    }`,
+    {},
+    {
+      next: {
+        tags: ["projects"],
+      },
+    },
   );
 }
 
@@ -195,6 +264,11 @@ export async function getProjectBySlug(
       slug
     }`,
     { slug },
+    {
+      next: {
+        tags: ["projects"],
+      },
+    },
   );
 }
 
@@ -202,8 +276,18 @@ export async function getContact(): Promise<ContactLink[]> {
   if (!sanityClient) {
     return [];
   }
+
   return sanityClient.fetch<ContactLink[]>(
-    `*[_type == "contact" && _id == "contact"][0].links[] { name, link }`,
+    `*[_type == "contact" && _id == "contact"][0].links[] {
+      name,
+      link
+    }`,
+    {},
+    {
+      next: {
+        tags: ["contact"],
+      },
+    },
   );
 }
 
@@ -218,6 +302,12 @@ export async function getFooter() {
       subtitle,
       copyright,
     }`,
+    {},
+    {
+      next: {
+        tags: ["footer"],
+      },
+    },
   );
 }
 
@@ -252,5 +342,11 @@ export async function getSEO(): Promise<SEO | null> {
       author,
       siteUrl
     }`,
+    {},
+    {
+      next: {
+        tags: ["seo"],
+      },
+    },
   );
 }

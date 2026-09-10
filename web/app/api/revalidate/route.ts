@@ -1,13 +1,20 @@
 import { NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
-
-const secret = process.env.SANITY_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
   try {
+    const secret = process.env.SANITY_WEBHOOK_SECRET;
+
+    if (!secret) {
+      return NextResponse.json(
+        { message: "Server misconfiguration: missing webhook secret" },
+        { status: 500 },
+      );
+    }
+
     const signature = req.headers.get(SIGNATURE_HEADER_NAME);
-    const body = await req.text(); // Read raw text for signature validation
+    const body = await req.text();
 
     if (!signature || !isValidSignature(body, signature, secret)) {
       return NextResponse.json(
@@ -28,9 +35,18 @@ export async function POST(req: Request) {
 
     revalidateTag(_type, "max");
 
-    return NextResponse.json({ revalidated: true, now: Date.now() });
+    // Revalidate all routes
+    revalidatePath("/", "layout");
+
+    return NextResponse.json({
+      revalidated: true,
+      type: _type,
+      id: jsonBody?._id,
+      now: Date.now(),
+    });
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
+
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }
