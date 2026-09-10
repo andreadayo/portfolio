@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 
 export async function POST(req: Request) {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     const signature = req.headers.get(SIGNATURE_HEADER_NAME);
-    const body = await req.text(); // Read raw text for signature validation
+    const body = await req.text();
 
     if (!signature || !isValidSignature(body, signature, secret)) {
       return NextResponse.json(
@@ -35,9 +35,20 @@ export async function POST(req: Request) {
 
     revalidateTag(_type, "max");
 
-    return NextResponse.json({ revalidated: true, now: Date.now() });
+    // Revalidate pages that consume Sanity content.
+    revalidatePath("/");
+    revalidatePath("/experience");
+    revalidatePath("/projects");
+
+    return NextResponse.json({
+      revalidated: true,
+      type: _type,
+      id: jsonBody?._id,
+      now: Date.now(),
+    });
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
+
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }
