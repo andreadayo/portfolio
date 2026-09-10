@@ -78,8 +78,8 @@ export default function ProjectList({ projects }: Props) {
       ) : (
         <p className={styles.emptyState}>
           {filter === "all"
-            ? "No projects found."
-            : `No ${filter} projects found.`}
+            ? "Projects coming soon."
+            : `${filter.charAt(0).toUpperCase()}${filter.slice(1)} projects coming soon.`}
         </p>
       )}
     </>

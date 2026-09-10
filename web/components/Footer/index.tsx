@@ -41,12 +41,14 @@ export default async function Footer() {
         </div>
       </Container>
       <Container smallPadding isLast>
-        <span className={styles.copyright}>
-          © {currentYear} {footer?.copyright}
-        </span>
-        <a href="#top">
-          <ActionLink label="Back to top" icon="arrow-up" side="right" />
-        </a>
+        <div className={styles.bottom}>
+          <span className={styles.copyright}>
+            © {currentYear} {footer?.copyright}
+          </span>
+          <a className={styles.action} href="#top">
+            <ActionLink label="Back to top" icon="arrow-up" side="right" />
+          </a>
+        </div>
       </Container>
     </div>
   );

@@ -1,3 +1,5 @@
+@use "../../../styles/variables" as *;
+
 .techstack {
   width: 100%;
   display: flex;
@@ -9,6 +11,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5em;
+
+    @media only screen and (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
 
     .techItem {
       display: flex;

@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 .filter {
   display: flex;
   align-items: center;
@@ -26,6 +28,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5em;
+
+  @media only screen and (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .emptyState {

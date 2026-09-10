@@ -9,8 +9,11 @@
 
   background: var(--surface);
   color: var(--text-primary);
+  font-family: var(--font-azeret-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
 
-  border-radius: 0.5rem;
+  border-radius: 0.125em;
 
   z-index: 9999;
 

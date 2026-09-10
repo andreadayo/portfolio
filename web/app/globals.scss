@@ -29,7 +29,7 @@ body {
 
   // Text
   --text-primary: #f5f5f5;
-  --text-secondary: #737373;
+  --text-secondary: #8d8d8d;
 
   // Typography
   --text-xxs: 0.625rem; // 10px
@@ -51,11 +51,11 @@ body {
 }
 
 [data-theme="light"] {
-  --background: #fcfcfc;
-  --surface: #e5e5e5;
+  --background: #f0f0f0;
+  --surface: #dddddd;
 
   --text-primary: #171717;
-  --text-secondary: #737373;
+  --text-secondary: #636363;
 
   color-scheme: light;
 }

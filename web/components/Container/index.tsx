@@ -23,8 +23,7 @@ export default function Container({
     >
       <div className={styles.left} />
       <div
-        className={styles.inner}
-        style={{ padding: smallPadding ? "1em 2.5em" : "3em 2.5em" }} // for header and footer
+        className={`${styles.inner} ${smallPadding ? styles.smallPadding : styles.defaultPadding}`}
       >
         {children}
       </div>

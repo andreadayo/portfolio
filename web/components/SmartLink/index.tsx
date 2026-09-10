@@ -54,7 +54,7 @@ export default function SmartLink({
 
       {copied && (
         <div className={styles.copied} role="status">
-          Copied!
+          Copied email!
         </div>
       )}
     </>
