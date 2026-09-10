@@ -35,10 +35,8 @@ export async function POST(req: Request) {
 
     revalidateTag(_type, "max");
 
-    // Revalidate pages that consume Sanity content.
-    revalidatePath("/");
-    revalidatePath("/experience");
-    revalidatePath("/projects");
+    // Revalidate all routes
+    revalidatePath("/", "layout");
 
     return NextResponse.json({
       revalidated: true,
