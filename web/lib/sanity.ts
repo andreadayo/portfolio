@@ -79,7 +79,7 @@ export const sanityClient =
         projectId,
         dataset,
         apiVersion: "2026-08-29",
-        useCdn: true,
+        useCdn: false,
       })
     : null;
 
