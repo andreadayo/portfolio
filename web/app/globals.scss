@@ -72,13 +72,11 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease;
 }
 
 .page-shell {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
