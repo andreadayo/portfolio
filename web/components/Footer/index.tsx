@@ -33,6 +33,7 @@ export default async function Footer() {
                 key={contact._key}
                 className={styles.link}
                 href={contact.link ?? undefined}
+                underlineOnHover
               >
                 {contact.name}
               </SmartLink>

@@ -40,7 +40,7 @@
       .link {
         font-size: var(--text-sm);
         color: var(--text-primary);
-        text-decoration: underline;
+        position: relative;
         cursor: pointer;
       }
     }

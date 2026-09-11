@@ -64,17 +64,20 @@ export default function RichText({ value }: RichTextProps) {
               em: ({ children }) => <em>{children}</em>,
               underline: ({ children }) => <u>{children}</u>,
               link: ({ children, value }) => (
-                <SmartLink
-                  href={value?.href}
-                  newTab={value?.newTab}
-                  className={
-                    value?.href?.startsWith("mailto:")
-                      ? styles.emailLink
-                      : undefined
-                  }
-                >
-                  {children}
-                </SmartLink>
+                <span style={{ fontWeight: 500 }}>
+                  <SmartLink
+                    href={value?.href}
+                    newTab={value?.newTab}
+                    className={
+                      value?.href?.startsWith("mailto:")
+                        ? styles.emailLink
+                        : undefined
+                    }
+                    underlineOnHover
+                  >
+                    {children}
+                  </SmartLink>
+                </span>
               ),
             },
             block: {
