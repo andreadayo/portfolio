@@ -1,4 +1,5 @@
 import SvgIcon from "@/components/SvgIcon";
+import ScrambleText from "@/components/ScrambleText";
 import styles from "./styles.module.scss";
 
 interface ButtonProps {
@@ -32,7 +33,9 @@ export default function Button({
         rel={target === "_blank" ? "noopener noreferrer" : undefined}
         style={buttonStyles}
       >
-        <span className={styles.label}>{label}</span>
+        <span className={styles.label}>
+          <ScrambleText>{label}</ScrambleText>
+        </span>
         {icon && (
           <SvgIcon
             src={`/icons/${icon}.svg`}
@@ -48,7 +51,9 @@ export default function Button({
 
   return (
     <div className={styles.button} onClick={onClick} style={buttonStyles}>
-      <span className={styles.label}>{label}</span>
+      <span className={styles.label}>
+        <ScrambleText>{label}</ScrambleText>
+      </span>
       {icon && (
         <SvgIcon
           src={`/icons/${icon}.svg`}

@@ -1,4 +1,5 @@
 import SvgIcon from "@/components/SvgIcon";
+import ScrambleText from "@/components/ScrambleText";
 import styles from "./styles.module.scss";
 
 interface ActionLinkProps {
@@ -17,7 +18,7 @@ export default function ActionLink({ label, icon, side }: ActionLinkProps) {
           size="1em"
         />
       )}
-      <span>{label}</span>
+      <ScrambleText>{label}</ScrambleText>
       {side === "right" && icon && (
         <SvgIcon
           src={`/icons/${icon}.svg`}
