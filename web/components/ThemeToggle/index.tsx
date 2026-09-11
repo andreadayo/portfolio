@@ -117,9 +117,14 @@ export default function ThemeToggle() {
 
     return () => {
       delete document.documentElement.dataset.initialLoad;
-      timelineRef.current?.kill();
     };
   }, [mounted, resolvedTheme]);
+
+  useEffect(() => {
+    return () => {
+      timelineRef.current?.kill();
+    };
+  }, []);
 
   if (!mounted) {
     return (
