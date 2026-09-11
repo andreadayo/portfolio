@@ -22,6 +22,15 @@ body {
   min-height: 100%;
 }
 
+html[data-initial-load="true"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background: var(--background);
+}
+
 :root {
   // Background
   --background: #171717;

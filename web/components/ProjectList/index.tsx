@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Project from "@/components/Project";
+import Reveal from "@/components/Reveal";
+import ScrambleText from "@/components/ScrambleText";
 import type { ProjectItem } from "@/lib/sanity";
 import styles from "./styles.module.scss";
 
@@ -27,52 +29,55 @@ export default function ProjectList({ projects }: Props) {
 
   return (
     <>
-      <div className={styles.filter}>
-        <button
-          className={filter === "all" ? styles.active : ""}
-          onClick={() => setFilter("all")}
-        >
-          All
-        </button>
+      <Reveal>
+        <div className={styles.filter}>
+          <button
+            className={filter === "all" ? styles.active : ""}
+            onClick={() => setFilter("all")}
+          >
+            <ScrambleText>All</ScrambleText>
+          </button>
 
-        <span>•</span>
+          <span>•</span>
 
-        <button
-          className={filter === "website" ? styles.active : ""}
-          onClick={() => setFilter("website")}
-        >
-          Website
-        </button>
+          <button
+            className={filter === "website" ? styles.active : ""}
+            onClick={() => setFilter("website")}
+          >
+            <ScrambleText>Website</ScrambleText>
+          </button>
 
-        <span>•</span>
+          <span>•</span>
 
-        <button
-          className={filter === "design" ? styles.active : ""}
-          onClick={() => setFilter("design")}
-        >
-          Design
-        </button>
+          <button
+            className={filter === "design" ? styles.active : ""}
+            onClick={() => setFilter("design")}
+          >
+            <ScrambleText>Design</ScrambleText>
+          </button>
 
-        <span>•</span>
+          <span>•</span>
 
-        <button
-          className={filter === "playground" ? styles.active : ""}
-          onClick={() => setFilter("playground")}
-        >
-          Playground
-        </button>
-      </div>
+          <button
+            className={filter === "playground" ? styles.active : ""}
+            onClick={() => setFilter("playground")}
+          >
+            <ScrambleText>Playground</ScrambleText>
+          </button>
+        </div>
+      </Reveal>
 
       {filteredProjects.length > 0 ? (
         <div className={styles.projectsList}>
-          {filteredProjects.map((project) => (
-            <Project
-              key={project._id}
-              title={project.title ?? ""}
-              subtitle={project.subtitle ?? ""}
-              href={project.slug?.current ?? ""}
-              featuredImage={project.featuredImageUrl}
-            />
+          {filteredProjects.map((project, index) => (
+            <Reveal key={project._id} delay={index * 0.12}>
+              <Project
+                title={project.title ?? ""}
+                subtitle={project.subtitle ?? ""}
+                href={project.slug?.current ?? ""}
+                featuredImage={project.featuredImageUrl}
+              />
+            </Reveal>
           ))}
         </div>
       ) : (

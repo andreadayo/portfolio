@@ -111,6 +111,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${generalSans.variable} ${azeretMono.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
+      data-initial-load="true"
     >
       <body>
         <ThemeProvider>

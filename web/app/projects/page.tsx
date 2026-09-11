@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Container from "@/components/Container";
 import ProjectList from "@/components/ProjectList";
-import { getPageDescriptions, getProjects, sanityImageUrl } from "@/lib/sanity";
 import RichText from "@/components/RichText";
+import Reveal from "@/components/Reveal";
+import ScrambleText from "@/components/ScrambleText";
+import { getPageDescriptions, getProjects, sanityImageUrl } from "@/lib/sanity";
 import styles from "./page.module.scss";
 
 export default async function Projects() {
@@ -17,17 +19,28 @@ export default async function Projects() {
     <div className={styles.page}>
       <Container fillHeight>
         <div className={styles.projects}>
-          <div className={styles.nav}>
-            <Link href="/">Home</Link>
-            <span>/</span>
-            <span className={styles.active}>Projects</span>
-          </div>
+          <Reveal>
+            <div className={styles.nav}>
+              <Link href="/">
+                <ScrambleText>Home</ScrambleText>
+              </Link>
+              <span>/</span>
+
+              <Link href="/projects">
+                <span className={styles.active}>
+                  <ScrambleText>Projects</ScrambleText>
+                </span>
+              </Link>
+            </div>
+          </Reveal>
 
           {/* Description */}
           {pageDescriptions?.projectListDescription && (
-            <div className={styles.expDescription}>
-              <RichText value={pageDescriptions.projectListDescription} />
-            </div>
+            <Reveal>
+              <div className={styles.expDescription}>
+                <RichText value={pageDescriptions.projectListDescription} />
+              </div>
+            </Reveal>
           )}
 
           {/* Project List */}

@@ -1,4 +1,5 @@
 import styles from "./styles.module.scss";
+import Reveal from "@/components/Reveal";
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
 import Project from "@/components/Project";
@@ -13,31 +14,34 @@ export default async function Projects() {
 
   return (
     <Container>
-      <div className={styles.projects}>
-        <SectionHeader
-          headerIcon="projects"
-          headerLabel="Projects"
-          actionIcon="arrow-right"
-          actionLabel="View All"
-          actionLink="/projects"
-        />
+      <Reveal>
+        <div className={styles.projects}>
+          <SectionHeader
+            headerIcon="projects"
+            headerLabel="Projects"
+            actionIcon="arrow-right"
+            actionLabel="View All"
+            actionLink="/projects"
+          />
 
-        {featuredProjects.length > 0 ? (
-          <div className={styles.projectsList}>
-            {featuredProjects.map((project) => (
-              <Project
-                key={project._id}
-                title={project.title ?? ""}
-                subtitle={project.subtitle ?? ""}
-                href={project.slug?.current ?? ""}
-                featuredImage={sanityImageUrl(project.featuredImage)}
-              />
-            ))}
-          </div>
-        ) : (
-          <span className={styles.empty}>No featured projects.</span>
-        )}
-      </div>
+          {featuredProjects.length > 0 ? (
+            <div className={styles.projectsList}>
+              {featuredProjects.map((project, index) => (
+                <Reveal key={project._id} delay={index * 0.12}>
+                  <Project
+                    title={project.title ?? ""}
+                    subtitle={project.subtitle ?? ""}
+                    href={project.slug?.current ?? ""}
+                    featuredImage={sanityImageUrl(project.featuredImage)}
+                  />
+                </Reveal>
+              ))}
+            </div>
+          ) : (
+            <span className={styles.empty}>No featured projects.</span>
+          )}
+        </div>
+      </Reveal>
     </Container>
   );
 }

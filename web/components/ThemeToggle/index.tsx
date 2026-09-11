@@ -1,7 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-import { useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { gsap } from "gsap";
 import SvgIcon from "@/components/SvgIcon";
@@ -10,6 +9,7 @@ const numberOfPoints = 10;
 const numberOfPaths = 2;
 const pointDelay = 0.3;
 const pathDelay = 0.25;
+const themeRevealAt = 0.5;
 
 function createPath(points: number[]) {
   let path = `M 0 ${points[0]} C`;
@@ -38,6 +38,88 @@ export default function ThemeToggle() {
   const pathRefs = useRef<SVGPathElement[]>([]);
   const stopRefs = useRef<SVGStopElement[]>([]);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const hasPlayedEntrance = useRef(false);
+
+  useEffect(() => {
+    if (!mounted || hasPlayedEntrance.current || !resolvedTheme) {
+      return;
+    }
+
+    const overlay = overlayRef.current;
+
+    if (!overlay || pathRefs.current.length < numberOfPaths) {
+      return;
+    }
+
+    hasPlayedEntrance.current = true;
+    document.documentElement.dataset.themeTransition = "active";
+
+    const points = Array.from({ length: numberOfPaths }, () =>
+      Array.from({ length: numberOfPoints }, () => 100),
+    );
+    const waveColors =
+      resolvedTheme === "light"
+        ? ["#f0f0f0", "#dddddd", "#dddddd", "#f0f0f0"]
+        : ["#171717", "#212121", "#212121", "#171717"];
+
+    overlay.style.visibility = "visible";
+    stopRefs.current.forEach((stop, index) => {
+      stop.setAttribute("stop-color", waveColors[index]);
+    });
+    pathRefs.current.forEach((path, index) => {
+      path.setAttribute("d", createPath(points[index]));
+    });
+
+    const delays = Array.from(
+      { length: numberOfPoints },
+      () => Math.random() * pointDelay,
+    );
+
+    const startEntrance = () => {
+      delete document.documentElement.dataset.initialLoad;
+
+      const timeline = gsap.timeline({
+        defaults: { ease: "power2.inOut", duration: 0.9 },
+        onUpdate: () => {
+          pathRefs.current.forEach((path, index) => {
+            path.setAttribute("d", createPath(points[index]));
+          });
+        },
+        onComplete: () => {
+          overlay.style.visibility = "hidden";
+          delete document.documentElement.dataset.themeTransition;
+          document.dispatchEvent(new Event("theme-transition-complete"));
+          timelineRef.current = null;
+        },
+      });
+      timeline.call(
+        () => {
+          document.dispatchEvent(new Event("theme-transition-reveal"));
+        },
+        [],
+        themeRevealAt,
+      );
+
+      points.forEach((pathPoints, pathIndex) => {
+        pathPoints.forEach((_, pointIndex) => {
+          timeline.to(
+            pathPoints,
+            { [pointIndex]: 0 },
+            delays[pointIndex] + pathIndex * pathDelay,
+          );
+        });
+      });
+
+      timelineRef.current = timeline;
+    };
+
+    requestAnimationFrame(startEntrance);
+
+    return () => {
+      delete document.documentElement.dataset.initialLoad;
+      timelineRef.current?.kill();
+    };
+  }, [mounted, resolvedTheme]);
 
   if (!mounted) {
     return (
@@ -76,6 +158,7 @@ export default function ThemeToggle() {
         : ["#171717", "#212121", "#212121", "#171717"];
 
     overlay.style.visibility = "visible";
+    document.documentElement.dataset.themeTransition = "active";
     stopRefs.current.forEach((stop, index) => {
       stop.setAttribute("stop-color", waveColors[index]);
     });
@@ -93,6 +176,8 @@ export default function ThemeToggle() {
       },
       onComplete: () => {
         overlay.style.visibility = "hidden";
+        delete document.documentElement.dataset.themeTransition;
+        document.dispatchEvent(new Event("theme-transition-complete"));
         timelineRef.current = null;
       },
     });
@@ -113,6 +198,13 @@ export default function ThemeToggle() {
     });
 
     timeline.add("retract");
+    timeline.call(
+      () => {
+        document.dispatchEvent(new Event("theme-transition-reveal"));
+      },
+      [],
+      `retract+=${themeRevealAt}`,
+    );
     timeline.call(
       () => {
         document.documentElement.setAttribute("data-theme", nextTheme);
