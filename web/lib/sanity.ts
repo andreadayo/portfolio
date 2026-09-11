@@ -279,6 +279,7 @@ export async function getContact(): Promise<ContactLink[]> {
 
   return sanityClient.fetch<ContactLink[]>(
     `*[_type == "contact" && _id == "contact"][0].links[] {
+      _key,
       name,
       link
     }`,

@@ -2,12 +2,12 @@
   font-size: inherit;
   color: inherit;
 
-  p {
+  > div > p {
     margin: 0 0 1em;
     color: var(--text-secondary);
   }
 
-  p:last-child {
+  > div:last-child > p {
     margin-bottom: 0;
   }
 
@@ -44,6 +44,10 @@
 
   figure {
     margin: 1.5em 0;
+  }
+
+  > div:last-child > figure {
+    margin-bottom: 0;
   }
 
   figure img {

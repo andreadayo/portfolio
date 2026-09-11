@@ -18,6 +18,7 @@
 
   .nav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.375em;
     font-family: var(--font-azeret-mono);
@@ -56,6 +57,7 @@
 
       .technologies {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 0.25em;
         font-family: var(--font-azeret-mono);

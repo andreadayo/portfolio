@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 
 import { getSEO, sanityImageUrl } from "@/lib/sanity";
 
@@ -111,6 +112,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${generalSans.variable} ${azeretMono.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
+      data-initial-load="true"
     >
       <body>
         <ThemeProvider>
@@ -124,7 +126,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 flexDirection: "column",
               }}
             >
-              {children}
+              <PageTransition>{children}</PageTransition>
             </div>
 
             <Footer />

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/Container";
 import ThemeToggle from "@/components/ThemeToggle";
+import ScrambleText from "@/components/ScrambleText";
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
               color: "var(--text-secondary)",
             }}
           >
-            AD
+            <ScrambleText>AD</ScrambleText>
           </span>
         </Link>
         <ThemeToggle />

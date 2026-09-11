@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Project from "@/components/Project";
+import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
+import ScrambleText from "@/components/ScrambleText";
 
 import { getProjectBySlug, getProjects, sanityImageUrl } from "@/lib/sanity";
 
@@ -51,24 +53,38 @@ export default async function ProjectPage({ params }: Props) {
       <Container fillHeight>
         <div className={styles.projects}>
           {/* Navigation */}
-          <div className={styles.nav}>
-            <Link href="/">Home</Link>
-            <span>/</span>
-            <Link href="/projects">Projects</Link>
-            <span>/</span>
-            <span className={styles.active}>{project.title}</span>
-          </div>
+          <Reveal>
+            <div className={styles.nav}>
+              <Link href="/">
+                <ScrambleText>Home</ScrambleText>
+              </Link>
+              <span>/</span>
+              <Link href="/projects">
+                <ScrambleText>Projects</ScrambleText>
+              </Link>
+              <span>/</span>
+              <Link href={`/projects/${slug}`}>
+                <span className={styles.active}>
+                  <ScrambleText>{project.title}</ScrambleText>
+                </span>
+              </Link>
+            </div>
+          </Reveal>
 
           {/* Project Header */}
           <div className={styles.projectHeader}>
             <div className={styles.projectDetails}>
               <div className={styles.projectTitleContainer}>
-                <h1 className={styles.projectTitle}>{project.title}</h1>
+                <Reveal>
+                  <h1 className={styles.projectTitle}>{project.title}</h1>
+                </Reveal>
 
                 {project.subtitle && (
-                  <p className={styles.projectDescription}>
-                    {project.subtitle}
-                  </p>
+                  <Reveal>
+                    <p className={styles.projectDescription}>
+                      {project.subtitle}
+                    </p>
+                  </Reveal>
                 )}
               </div>
 
@@ -76,12 +92,14 @@ export default async function ProjectPage({ params }: Props) {
               {project.techStack && project.techStack.length > 0 && (
                 <div className={styles.technologies}>
                   {project.techStack.map((tech, index) => (
-                    <span key={tech}>
-                      {tech}
-                      {index < project.techStack!.length - 1 && (
-                        <span> • </span>
-                      )}
-                    </span>
+                    <Reveal key={tech} delay={index * 0.08} isInline>
+                      <span>
+                        {tech}
+                        {index < project.techStack!.length - 1 && (
+                          <span> • </span>
+                        )}
+                      </span>
+                    </Reveal>
                   ))}
                 </div>
               )}
@@ -90,32 +108,38 @@ export default async function ProjectPage({ params }: Props) {
             {/* Links */}
             <div className={styles.linkContainer}>
               {project.liveLink && (
-                <Button
-                  label="View Live"
-                  icon="arrow-up-right"
-                  href={project.liveLink}
-                  target="_blank"
-                />
+                <Reveal isInline>
+                  <Button
+                    label="View Live"
+                    icon="arrow-up-right"
+                    href={project.liveLink}
+                    target="_blank"
+                  />
+                </Reveal>
               )}
 
               {project.githubLink && (
-                <Button
-                  label="Github"
-                  icon="github"
-                  type="secondary"
-                  href={project.githubLink}
-                  target="_blank"
-                />
+                <Reveal isInline delay={0.08}>
+                  <Button
+                    label="Github"
+                    icon="github"
+                    type="secondary"
+                    href={project.githubLink}
+                    target="_blank"
+                  />
+                </Reveal>
               )}
 
               {project.figmaLink && (
-                <Button
-                  label="Figma"
-                  icon="figma"
-                  type="secondary"
-                  href={project.figmaLink}
-                  target="_blank"
-                />
+                <Reveal isInline delay={0.16}>
+                  <Button
+                    label="Figma"
+                    icon="figma"
+                    type="secondary"
+                    href={project.figmaLink}
+                    target="_blank"
+                  />
+                </Reveal>
               )}
             </div>
           </div>
@@ -124,17 +148,19 @@ export default async function ProjectPage({ params }: Props) {
           <div className={styles.projectContent}>
             {/* Featured Image */}
             {featuredImageUrl && (
-              <div className={styles.image}>
-                <Image
-                  src={featuredImageUrl}
-                  alt={project.title ?? ""}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 100vw"
-                  className={styles.imageContent}
-                  loading="eager"
-                />
-              </div>
+              <Reveal>
+                <div className={styles.image}>
+                  <Image
+                    src={featuredImageUrl}
+                    alt={project.title ?? ""}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 100vw"
+                    className={styles.imageContent}
+                    loading="eager"
+                  />
+                </div>
+              </Reveal>
             )}
 
             {/* Rich Text Description */}
@@ -147,14 +173,15 @@ export default async function ProjectPage({ params }: Props) {
       {otherProjects.length > 0 && (
         <Container>
           <div className={styles.projectsList}>
-            {otherProjects.slice(0, 2).map((otherProject) => (
-              <Project
-                key={otherProject._id}
-                title={otherProject.title ?? ""}
-                subtitle={otherProject.type ?? ""}
-                href={otherProject.slug?.current ?? ""}
-                featuredImage={sanityImageUrl(otherProject.featuredImage)}
-              />
+            {otherProjects.slice(0, 2).map((otherProject, index) => (
+              <Reveal key={otherProject._id} delay={index * 0.12}>
+                <Project
+                  title={otherProject.title ?? ""}
+                  subtitle={otherProject.subtitle ?? ""}
+                  href={otherProject.slug?.current ?? ""}
+                  featuredImage={sanityImageUrl(otherProject.featuredImage)}
+                />
+              </Reveal>
             ))}
           </div>
         </Container>
