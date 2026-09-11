@@ -5,12 +5,16 @@ import { getEducation, type EducationItem } from "@/lib/sanity";
 import { formatRange } from "@/lib/format";
 import styles from "../Experience/styles.module.scss";
 
-export default async function Education() {
+interface EducationProps {
+  delay?: number;
+}
+
+export default async function Education({ delay = 0 }: EducationProps) {
   const education: EducationItem[] = await getEducation();
 
   return (
     <Container>
-      <Reveal>
+      <Reveal delay={delay}>
         <div className={styles.experience}>
           <SectionHeader headerIcon="education" headerLabel="Education" />
           <div className={styles.workList}>

@@ -8,11 +8,11 @@ import styles from "./page.module.scss";
 export default function Home() {
   return (
     <div className={styles.page}>
-      <About />
-      <Experience />
-      <Education />
-      <TechStack />
-      <Projects />
+      <About delay={0} />
+      <Experience delay={0.12} />
+      <Education delay={0.24} />
+      <TechStack delay={0.36} />
+      <Projects delay={0.48} />
     </div>
   );
 }

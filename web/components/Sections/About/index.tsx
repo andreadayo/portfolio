@@ -5,13 +5,17 @@ import Reveal from "@/components/Reveal";
 import { getAbout, sanityImageUrl } from "@/lib/sanity";
 import styles from "./styles.module.scss";
 
-export default async function About() {
+interface AboutProps {
+  delay?: number;
+}
+
+export default async function About({ delay = 0 }: AboutProps) {
   const about = await getAbout();
   const iconUrl = sanityImageUrl(about?.icon);
 
   return (
     <Container>
-      <Reveal>
+      <Reveal delay={delay}>
         <div className={styles.about}>
           <div className={styles.header}>
             <div className={styles.iconContainer}>

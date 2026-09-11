@@ -5,7 +5,11 @@ import SectionHeader from "@/components/SectionHeader";
 import Project from "@/components/Project";
 import { getProjects, sanityImageUrl, type ProjectItem } from "@/lib/sanity";
 
-export default async function Projects() {
+interface ProjectsProps {
+  delay?: number;
+}
+
+export default async function Projects({ delay = 0 }: ProjectsProps) {
   const projects: ProjectItem[] = await getProjects();
 
   const featuredProjects = projects.filter(
@@ -14,7 +18,7 @@ export default async function Projects() {
 
   return (
     <Container>
-      <Reveal>
+      <Reveal delay={delay}>
         <div className={styles.projects}>
           <SectionHeader
             headerIcon="projects"

@@ -19,7 +19,7 @@ export default async function Projects() {
     <div className={styles.page}>
       <Container fillHeight>
         <div className={styles.projects}>
-          <Reveal>
+          <Reveal delay={0}>
             <div className={styles.nav}>
               <Link href="/">
                 <ScrambleText>Home</ScrambleText>
@@ -36,7 +36,7 @@ export default async function Projects() {
 
           {/* Description */}
           {pageDescriptions?.projectListDescription && (
-            <Reveal>
+            <Reveal delay={0.12}>
               <div className={styles.expDescription}>
                 <RichText value={pageDescriptions.projectListDescription} />
               </div>
@@ -44,7 +44,9 @@ export default async function Projects() {
           )}
 
           {/* Project List */}
-          <ProjectList projects={projectsWithImages} />
+          <Reveal delay={0.24}>
+            <ProjectList projects={projectsWithImages} />
+          </Reveal>
         </div>
       </Container>
     </div>
