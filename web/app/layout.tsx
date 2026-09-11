@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Azeret_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
@@ -132,6 +133,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
