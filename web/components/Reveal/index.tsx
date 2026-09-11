@@ -7,12 +7,14 @@ interface RevealProps {
   children: ReactNode;
   delay?: number;
   isCentered?: boolean;
+  isInline?: boolean;
 }
 
 export default function Reveal({
   children,
   delay = 0,
   isCentered = false,
+  isInline = false,
 }: RevealProps) {
   const revealRef = useRef<HTMLDivElement>(null);
 
@@ -109,7 +111,8 @@ export default function Reveal({
     <div
       ref={revealRef}
       style={{
-        width: "100%",
+        width: isInline ? "auto" : "100%",
+        ...(isInline && { display: "inline-block" }),
         ...(isCentered && {
           display: "flex",
           justifyContent: "center",
