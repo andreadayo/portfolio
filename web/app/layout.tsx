@@ -69,6 +69,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
     metadataBase: seo.siteUrl ? new URL(seo.siteUrl) : undefined,
 
+    alternates: {
+      canonical: seo.siteUrl ?? "/",
+    },
+
     openGraph: {
       title: seo.title ?? undefined,
       description: seo.description ?? undefined,
