@@ -91,18 +91,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const socialImageMetadata = socialImage
     ? [{ url: socialImage, alt: project?.title ?? seo?.image?.alt ?? "" }]
     : undefined;
+  const projectUrl = seo?.siteUrl
+    ? new URL(`/projects/${slug}`, seo.siteUrl).toString()
+    : `/projects/${slug}`;
 
   return {
     title: project?.title ?? "Projects",
     description,
     alternates: {
-      canonical: seo?.siteUrl
-        ? new URL(`/projects/${slug}`, seo.siteUrl).toString()
-        : `/projects/${slug}`,
+      canonical: projectUrl,
     },
     openGraph: {
       title: project?.title ?? "Projects",
       description,
+      url: projectUrl,
+      type: "website",
       images: socialImageMetadata,
     },
     twitter: {
