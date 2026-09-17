@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Container from "@/components/Container";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
@@ -11,6 +12,10 @@ import {
 import type { PortableTextBlock } from "@portabletext/types";
 import { formatRange, formatLabel } from "@/lib/format";
 import styles from "./page.module.scss";
+
+export const metadata: Metadata = {
+  title: "Experience",
+};
 
 export default async function ExperiencePage() {
   const pageDescriptions = await getPageDescriptions();

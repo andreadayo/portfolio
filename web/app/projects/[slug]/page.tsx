@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { PortableTextBlock } from "@portabletext/types";
 
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -17,6 +19,52 @@ interface Props {
   params: Promise<{
     slug: string;
   }>;
+}
+
+function portableTextToPlainText(
+  blocks: PortableTextBlock[] | null | undefined,
+) {
+  return (blocks ?? [])
+    .map(
+      (block) =>
+        block.children?.map((child) => child.text ?? "").join("") ?? "",
+    )
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function projectDescription(
+  subtitle: string | null | undefined,
+  description: PortableTextBlock[] | null | undefined,
+) {
+  const text = [subtitle, portableTextToPlainText(description)]
+    .filter(Boolean)
+    .join(" ");
+
+  return text ? text.slice(0, 160).trim() : undefined;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  const description = projectDescription(
+    project?.subtitle,
+    project?.description,
+  );
+
+  return {
+    title: project?.title ?? "Projects",
+    description,
+    openGraph: {
+      title: project?.title ?? "Projects",
+      description,
+    },
+    twitter: {
+      title: project?.title ?? "Projects",
+      description,
+    },
+  };
 }
 
 function projectOrder(value: string) {
