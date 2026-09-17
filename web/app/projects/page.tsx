@@ -5,12 +5,26 @@ import ProjectList from "@/components/ProjectList";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
 import ScrambleText from "@/components/ScrambleText";
-import { getPageDescriptions, getProjects, sanityImageUrl } from "@/lib/sanity";
+import {
+  getPageDescriptions,
+  getProjects,
+  getSEO,
+  sanityImageUrl,
+} from "@/lib/sanity";
 import styles from "./page.module.scss";
 
-export const metadata: Metadata = {
-  title: "Projects",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSEO();
+
+  return {
+    title: "Projects",
+    alternates: {
+      canonical: seo?.siteUrl
+        ? new URL("/projects", seo.siteUrl).toString()
+        : "/projects",
+    },
+  };
+}
 
 export default async function Projects() {
   const pageDescriptions = await getPageDescriptions();

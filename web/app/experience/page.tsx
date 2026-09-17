@@ -7,15 +7,25 @@ import ScrambleText from "@/components/ScrambleText";
 import {
   getPageDescriptions,
   getExperience,
+  getSEO,
   type ExperienceItem,
 } from "@/lib/sanity";
 import type { PortableTextBlock } from "@portabletext/types";
 import { formatRange, formatLabel } from "@/lib/format";
 import styles from "./page.module.scss";
 
-export const metadata: Metadata = {
-  title: "Experience",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSEO();
+
+  return {
+    title: "Experience",
+    alternates: {
+      canonical: seo?.siteUrl
+        ? new URL("/experience", seo.siteUrl).toString()
+        : "/experience",
+    },
+  };
+}
 
 export default async function ExperiencePage() {
   const pageDescriptions = await getPageDescriptions();
