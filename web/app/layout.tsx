@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Azeret_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -139,6 +140,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </div>
         </ThemeProvider>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZJM9JKZEXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZJM9JKZEXX');
+          `}
+        </Script>
         <Analytics />
       </body>
     </html>
