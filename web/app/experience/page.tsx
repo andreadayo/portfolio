@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Container from "@/components/Container";
 import RichText from "@/components/RichText";
 import Reveal from "@/components/Reveal";
@@ -6,11 +7,25 @@ import ScrambleText from "@/components/ScrambleText";
 import {
   getPageDescriptions,
   getExperience,
+  getSEO,
   type ExperienceItem,
 } from "@/lib/sanity";
 import type { PortableTextBlock } from "@portabletext/types";
 import { formatRange, formatLabel } from "@/lib/format";
 import styles from "./page.module.scss";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSEO();
+
+  return {
+    title: "Experience",
+    alternates: {
+      canonical: seo?.siteUrl
+        ? new URL("/experience", seo.siteUrl).toString()
+        : "/experience",
+    },
+  };
+}
 
 export default async function ExperiencePage() {
   const pageDescriptions = await getPageDescriptions();

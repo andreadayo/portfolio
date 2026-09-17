@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { PortableTextBlock } from "@portabletext/types";
 
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -9,7 +11,12 @@ import Reveal from "@/components/Reveal";
 import RichText from "@/components/RichText";
 import ScrambleText from "@/components/ScrambleText";
 
-import { getProjectBySlug, getProjects, sanityImageUrl } from "@/lib/sanity";
+import {
+  getProjectBySlug,
+  getProjects,
+  getSEO,
+  sanityImageUrl,
+} from "@/lib/sanity";
 
 import styles from "./page.module.scss";
 
@@ -17,6 +24,96 @@ interface Props {
   params: Promise<{
     slug: string;
   }>;
+}
+
+function portableTextToPlainText(
+  blocks: PortableTextBlock[] | null | undefined,
+) {
+  return (blocks ?? [])
+    .map(
+      (block) =>
+        block.children?.map((child) => child.text ?? "").join("") ?? "",
+    )
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function decodeHtmlEntities(value: string) {
+  const namedEntities: Record<string, string> = {
+    amp: "&",
+    apos: "'",
+    gt: ">",
+    lt: "<",
+    nbsp: " ",
+    quot: '"',
+  };
+
+  return value.replace(
+    /&(#(?:x[\da-f]+|\d+)|[a-z]+);/gi,
+    (entity, reference: string) => {
+      if (reference.startsWith("#x")) {
+        return String.fromCodePoint(parseInt(reference.slice(2), 16));
+      }
+
+      if (reference.startsWith("#")) {
+        return String.fromCodePoint(parseInt(reference.slice(1), 10));
+      }
+
+      return namedEntities[reference.toLowerCase()] ?? entity;
+    },
+  );
+}
+
+function projectDescription(
+  subtitle: string | null | undefined,
+  description: PortableTextBlock[] | null | undefined,
+) {
+  const text = [subtitle, portableTextToPlainText(description)]
+    .filter(Boolean)
+    .join(" ");
+
+  const decodedText = decodeHtmlEntities(text);
+
+  return decodedText ? decodedText.slice(0, 160).trim() : undefined;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  const seo = await getSEO();
+  const description = projectDescription(
+    project?.subtitle,
+    project?.description,
+  );
+  const socialImage =
+    sanityImageUrl(project?.featuredImage) ?? sanityImageUrl(seo?.image);
+  const socialImageMetadata = socialImage
+    ? [{ url: socialImage, alt: project?.title ?? seo?.image?.alt ?? "" }]
+    : undefined;
+  const projectUrl = seo?.siteUrl
+    ? new URL(`/projects/${slug}`, seo.siteUrl).toString()
+    : `/projects/${slug}`;
+
+  return {
+    title: project?.title ?? "Projects",
+    description,
+    alternates: {
+      canonical: projectUrl,
+    },
+    openGraph: {
+      title: project?.title ?? "Projects",
+      description,
+      url: projectUrl,
+      type: "website",
+      images: socialImageMetadata,
+    },
+    twitter: {
+      title: project?.title ?? "Projects",
+      description,
+      images: socialImage ? [socialImage] : undefined,
+    },
+  };
 }
 
 function projectOrder(value: string) {

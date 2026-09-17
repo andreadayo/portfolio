@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Azeret_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -51,9 +52,15 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const socialImage = seo.image ? sanityImageUrl(seo.image) : undefined;
+  const siteName = seo.title?.split(" | ")[0] ?? undefined;
 
   return {
-    title: seo.title ?? undefined,
+    title: siteName
+      ? {
+          default: seo.title ?? siteName,
+          template: `${siteName} | %s`,
+        }
+      : undefined,
     description: seo.description ?? undefined,
 
     keywords: seo.keywords ?? undefined,
@@ -62,11 +69,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
     metadataBase: seo.siteUrl ? new URL(seo.siteUrl) : undefined,
 
+    alternates: {
+      canonical: seo.siteUrl ?? "/",
+    },
+
     openGraph: {
       title: seo.title ?? undefined,
       description: seo.description ?? undefined,
       url: seo.siteUrl ?? undefined,
-      siteName: seo.title ?? undefined,
+      siteName,
       type: "website",
       images: socialImage
         ? [
@@ -133,6 +144,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </div>
         </ThemeProvider>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZJM9JKZEXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZJM9JKZEXX');
+          `}
+        </Script>
         <Analytics />
       </body>
     </html>
